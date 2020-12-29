@@ -7,7 +7,29 @@ The IdentityServer instance used:
 - https://hub.docker.com/r/hanskindberg/identity-server
 - https://github.com/HansKindberg/Identity-Server
 
+## 1 Prerequisites
+
+### 1.1 Azure account
+
+- An Azure account with an active subscription. [Create an account for free](https://azure.microsoft.com/en-us/free/).
+
+### 1.2 Azure service principal
+
+You need an Azure service principal to use as deployment credentials from the GitHub repository.
+
+1. Sign in to your Azure account at https://portal.azure.com.
+2. Click the **Cloud Shell** button, [>_], up in the black bar to launch the Cloud Shell.
+3. Create a storage if you not already have one. You will be asked to do so if you do not have one.
+4. Make sure the environment is set to **Bash** (Bash/PowerShell). On the left in the grey **Cloud Shell** bar.
+
+ssss
+
+	az ad sp create-for-rbac --name IdentityServerDemoServicePrincipal --role contributor
+	az account show
+
+
 ## Notes
 
 - https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions
+- https://azuredevopslabs.com/labs/devopsserver/azureserviceprincipal/#exercise-1-creating-an-azure-service-principal-for-use-as-an-azure-resource-manager-service-connection
 - https://github.com/Azure/actions-workflow-samples/tree/master/AzureCLI
