@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"domainNameLabel": {
+			"type": "string"
+		},
+		"name": {
+			"type": "string"
+		}
+	},
+	"resources": [
+		{
+			"apiVersion": "[providers('Microsoft.Network', 'publicIPAddresses').apiVersions[0]]",
+			"location": "[resourceGroup().location]",
+			"name": "[parameters('name')]",
+			"properties": {
+				"dnsSettings": {
+					"domainNameLabel": "[parameters('domainNameLabel')]"
+				}
+			},
+			"type": "Microsoft.Network/publicIPAddresses"
+		}
+	]
+}
