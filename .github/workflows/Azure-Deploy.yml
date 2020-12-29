@@ -16,3 +16,8 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: "ARM deploy"
+        uses: azure/arm-deploy@v1
+        with:
+          resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}

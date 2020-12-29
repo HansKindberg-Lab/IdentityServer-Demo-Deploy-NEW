@@ -25,13 +25,50 @@ You need an Azure service principal to use as deployment credentials from the Gi
 
 		az ad sp create-for-rbac --name HansKindberg-IdentityServer-Demo
 
+6. The json-output looks like this:
+
+		{
+		  "appId": "{appId-value}",
+		  "displayName": "{displayName-value}",
+		  "name": "{name-value}",
+		  "password": "{password-value}",
+		  "tenant": "{tenant-value}"
+		}
+
+7. Remove displayName and name, like this:
+
+		{
+		  "appId": "{appId-value}",
+		  "password": "{password-value}",
+		  "tenant": "{tenant-value}"
+		}
+
+8. Rename like this:
+
+		{
+		  "clientId": "{appId-value}",
+		  "clientSecret": "{password-value}",
+		  "tenantId": "{tenant-value}"
+		}
+
+9. Add you subscription-id like this:
+
+		{
+		  "clientId": "{appId-value}",
+		  "clientSecret": "{password-value}",
+		  "subscriptionId": "{your Azure subscription-id}",
+		  "tenantId": "{tenant-value}"
+		}
+
+10. Save the value to use for the **AZURE_CREDENTIALS** secret, see below.
+
 ### 1.3 GitHub secrets
 
 To create a secret, go to **Settings** > **Secrets** > **New repository secret**.
 
 Create the following secrets, name and value:
 
-- **AZURE_CREDENTIALS**: {the json-output from above}
+- **AZURE_CREDENTIALS**: {the json-value from above}
 - **AZURE_LOCATION**: {the location for your resource-group, eg centralus}
 - **AZURE_RESOURCEGROUP**: {the name of your resource-group}
 - **AZURE_SUBSCRIPTION**: {the id of your Azure subscription}
