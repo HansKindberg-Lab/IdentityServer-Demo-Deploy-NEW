@@ -21,14 +21,22 @@ You need an Azure service principal to use as deployment credentials from the Gi
 2. Click the **Cloud Shell** button, [>_], up in the black bar to launch the Cloud Shell.
 3. Create a storage if you not already have one. You will be asked to do so if you do not have one.
 4. Make sure the environment is set to **Bash** (Bash/PowerShell). On the left in the grey **Cloud Shell** bar.
+5. Run the following command and copy the json-output
 
-ssss
+		az ad sp create-for-rbac --name HansKindberg-IdentityServer-Demo
 
-	az ad sp create-for-rbac --name IdentityServerDemoServicePrincipal --role contributor
-	az account show
+### 1.3 GitHub secrets
 
+To create a secret, go to **Settings** > **Secrets** > **New repository secret**.
 
-## Notes
+Create the following secrets, name and value:
+
+- **AZURE_CREDENTIALS**: {the json-output from above}
+- **AZURE_LOCATION**: {the location for your resource-group, eg centralus}
+- **AZURE_RESOURCEGROUP**: {the name of your resource-group}
+- **AZURE_SUBSCRIPTION**: {the id of your Azure subscription}
+
+## 2 Notes
 
 - https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions
 - https://azuredevopslabs.com/labs/devopsserver/azureserviceprincipal/#exercise-1-creating-an-azure-service-principal-for-use-as-an-azure-resource-manager-service-connection
