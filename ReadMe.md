@@ -51,7 +51,7 @@ You need an Azure service principal to use as deployment credentials from the Gi
 		  "tenantId": "{tenant-value}"
 		}
 
-9. Add you subscription-id like this:
+9. Add your subscription-id like this:
 
 		{
 		  "clientId": "{appId-value}",
