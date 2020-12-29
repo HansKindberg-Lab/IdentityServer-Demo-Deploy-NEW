@@ -1,0 +1,14 @@
+name: "Azure-Deploy"
+
+on:
+  #push:
+  #  branches: [ master ]
+  workflow_dispatch:  
+
+jobs:
+  Azure-Deploy:
+    name: "Azure-Deploy"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v2

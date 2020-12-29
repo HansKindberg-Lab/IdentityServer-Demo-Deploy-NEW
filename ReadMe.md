@@ -10,3 +10,4 @@ The IdentityServer instance used:
 ## Notes
 
 - https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions
+- https://github.com/Azure/actions-workflow-samples/tree/master/AzureCLI
