@@ -19,5 +19,7 @@ jobs:
       - name: "ARM deploy"
         uses: azure/arm-deploy@v1
         with:
+          region: ${{ secrets.AZURE_LOCATION }}
           resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
+          scope: subscription
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
