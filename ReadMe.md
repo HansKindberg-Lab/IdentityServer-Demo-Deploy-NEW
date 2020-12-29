@@ -1,6 +1,6 @@
 # IdentityServer-Demo-Deploy
 
-Repository for deploying IdentityServer to Azure. This repository contains configuration and Azure resource-templates for the deployment.
+Repository for deploying an IdentityServer demo to Azure. This repository contains configuration and Azure resource-templates for the deployment.
 
 The IdentityServer instance used:
 
