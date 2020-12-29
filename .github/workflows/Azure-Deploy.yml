@@ -19,6 +19,7 @@ jobs:
       - name: "ARM deploy"
         uses: azure/arm-deploy@v1
         with:
+          parameters: domainNameLabel=abcdefghij name=myPublicIpAddress
           region: ${{ secrets.AZURE_LOCATION }}
           resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
           scope: subscription
