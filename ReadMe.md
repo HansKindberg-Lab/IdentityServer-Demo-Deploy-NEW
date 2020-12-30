@@ -1,5 +1,41 @@
 # IdentityServer-Demo-Deploy
 
+
+
+
+
+
+
+
+Temporary begin
+[
+  {
+    "name": "MyName",
+    "value": "My value",
+    "type": "SQLServer",
+    "slotSetting": false
+  }
+]
+Temporary end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Repository for deploying an IdentityServer demo to Azure. This repository contains configuration and Azure resource-templates for the deployment.
 
 The IdentityServer instance used:
@@ -68,6 +104,7 @@ Create the following secrets, name and value:
 - **AZURE_LOCATION**: {the location for your resource-group, eg centralus}
 - **AZURE_RESOURCEGROUP**: {the name of your resource-group}
 - **AZURE_SUBSCRIPTION**: {the id of your Azure subscription}
+- **CONNECTION_STRINGS**: [{"name": "IdentityServer", "slotSetting": false, "type": "SQLServer", "value": "Your connection-string"}]
 - **SITHS_ROOTCERTIFICATE**: {the exported certificate-content from above}
 
 ## 2 Notes

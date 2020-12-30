@@ -6,10 +6,10 @@
 			"type": "string"
 		},
 		"appSettings": {
-			"type": "string"
+			"type": "securestring"
 		},
 		"connectionStrings": {
-			"type": "string"
+			"type": "securestring"
 		},
 		"sithsRootCertificateBlob": {
 			"metadata": {
