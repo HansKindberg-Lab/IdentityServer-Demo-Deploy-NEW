@@ -12,7 +12,7 @@
 	"resources": [
 		{
 			"apiVersion": "[providers('Microsoft.Network', 'publicIPAddresses').apiVersions[0]]",
-			"location": "northeurope",
+			"location": "[resourceGroup().location]",
 			"name": "[parameters('name')]",
 			"properties": {
 				"dnsSettings": {
