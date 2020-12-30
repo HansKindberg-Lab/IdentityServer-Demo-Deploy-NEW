@@ -20,7 +20,9 @@ jobs:
         working-directory: "Source"
       - run: |
           Add-Type -AssemblyName "Project.dll";
-          $app = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings("/home/runner/work/IdentityServer-Demo-Deploy-NEW/IdentityServer-Demo-Deploy-NEW/Source/AppSettings.json");
-          Write-Host $app;
+          $azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings("/home/runner/work/IdentityServer-Demo-Deploy-NEW/IdentityServer-Demo-Deploy-NEW/Source/AppSettings.json");
         shell: pwsh
         working-directory: "Source/Project/bin/Release/net5.0"
+      - run: |
+          Write-Host $azureAppServiceSettings;
+        shell: pwsh
