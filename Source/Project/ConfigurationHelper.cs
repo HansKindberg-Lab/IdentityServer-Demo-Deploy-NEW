@@ -28,7 +28,10 @@ namespace Project
 				var settings = new List<AzureAppServiceSetting>();
 				PopulateSettings(configuration, settings);
 
-				return JsonSerializer.Serialize(settings);
+				return JsonSerializer.Serialize(settings, new JsonSerializerOptions
+				{
+					WriteIndented = true
+				});
 			}
 			// ReSharper restore ConvertToUsingDeclaration
 		}
