@@ -18,3 +18,5 @@ jobs:
          dotnet-version: "5.0"
       - run: dotnet build --configuration Release
         working-directory: "Source"
+      - run: dir
+        working-directory: "Source/Project/bin/Release/net5.0"
