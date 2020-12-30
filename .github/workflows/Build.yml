@@ -33,7 +33,8 @@ jobs:
           $appSettingsJsonPath = "${{ steps.appSettingsJsonPath.outputs.value }}";
           #Write-Host $appSettingsJsonPath;
 
-
+          Write-Host ${{ steps.appSettingsJsonPath.outputs.value }};
+          Write-Host "${{ steps.appSettingsJsonPath.outputs.value }}";
 
           Write-Host "Irk pirko";
 
