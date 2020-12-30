@@ -11,7 +11,7 @@ namespace Project
 	{
 		#region Methods
 
-		public static string ConvertToAzureAppServiceSettings(string appSettingsJsonPath)
+		public static string ConvertToAzureAppServiceSettings(string appSettingsJsonPath, bool indent = false)
 		{
 			if(appSettingsJsonPath == null)
 				throw new ArgumentNullException(nameof(appSettingsJsonPath));
@@ -30,7 +30,7 @@ namespace Project
 
 				return JsonSerializer.Serialize(settings, new JsonSerializerOptions
 				{
-					WriteIndented = true
+					WriteIndented = indent
 				});
 			}
 			// ReSharper restore ConvertToUsingDeclaration

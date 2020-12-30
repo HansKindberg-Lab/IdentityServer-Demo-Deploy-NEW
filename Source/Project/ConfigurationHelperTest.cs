@@ -17,7 +17,7 @@ namespace Project
 			var appSettingsJsonFilePath = Path.Combine(projectDirectory.Parent.FullName, "AppSettings.json");
 			// ReSharper restore PossibleNullReferenceException
 
-			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings(appSettingsJsonFilePath);
+			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings(appSettingsJsonFilePath, true);
 
 			Assert.AreEqual(35042, azureAppServiceSettings.Length);
 		}
