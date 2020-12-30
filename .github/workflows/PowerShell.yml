@@ -11,22 +11,10 @@ jobs:
       - name: "Display the path"
         run: echo ${env:PATH}
         shell: pwsh
-      - name: "Display the path"
-        run: |
-          $id = get-random
-          $code = @"
-          using System;
-          namespace HelloWorld
-          {
-            public class Program$id
-            {
-              public static string Get(string value)
-              {
-                return value;
-              }
-            }
-          }
-          "@
-          Add-Type -TypeDefinition $code -Language CSharp;
-          iex '[HelloWorld.Program$id]::Get("Arne")';
+      - name: "Get location"
+        run: Get-Location
         shell: pwsh
+      - name: "Get location"
+        run: Get-Location
+        shell: pwsh
+        working-directory: "Source/Project/"
