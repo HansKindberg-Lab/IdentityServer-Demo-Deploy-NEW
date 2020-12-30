@@ -5,6 +5,9 @@
 		"appServiceName": {
 			"type": "string"
 		},
+		"appSettings": {
+			"type": "securestring"
+		},
 		"sithsRootCertificateBlob": {
 			"metadata": {
 				"description": "The text-content of the 'SITHS e-id Root CA v2.crt' file."
@@ -19,6 +22,7 @@
 		"mtlsAppServiceName": "[concat(parameters('appServiceName'), '-mtls')]",
 		"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
 		"siteConfig": {
+			"appSettings": "[parameters('appSettings')]",
 			"linuxFxVersion": "DOCKER|hanskindberg/identity-server:latest",
 			"minTlsVersion": "1.2"
 		},
