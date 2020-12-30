@@ -31,7 +31,17 @@ jobs:
         run: |
           Add-Type -AssemblyName "Project.dll";
           $appSettingsJsonPath = ${{ steps.appSettingsJsonPath.outputs.value }};
-          Write-Host $appSettingsJsonPath;
+          #Write-Host $appSettingsJsonPath;
+
+
+
+          Write-Host "Irk pirko";
+
+
+
+
+
+
           #$azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings($appSettingsJsonPath);
           #echo "::set-output name=value::$($azureAppServiceSettings)"
           echo "::set-output name=value::$('arne')"
