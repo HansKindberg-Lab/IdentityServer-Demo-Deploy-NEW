@@ -31,7 +31,8 @@ jobs:
         run: |
           Add-Type -AssemblyName "Project.dll";
           $appSettingsJsonPath = "${{ steps.appSettingsJsonPath.outputs.value }}";
-          #Write-Host $appSettingsJsonPath;
+
+          Write-Host $appSettingsJsonPath;
 
           Write-Host ${{ steps.appSettingsJsonPath.outputs.value }};
           Write-Host "${{ steps.appSettingsJsonPath.outputs.value }}";
