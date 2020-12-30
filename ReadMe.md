@@ -23,44 +23,33 @@ You need an Azure service principal to use as deployment credentials from the Gi
 4. Make sure the environment is set to **Bash** (Bash/PowerShell). On the left in the grey **Cloud Shell** bar.
 5. Run the following command and copy the json-output
 
-		az ad sp create-for-rbac --name HansKindberg-IdentityServer-Demo
+		az ad sp create-for-rbac --name HansKindberg-IdentityServer-Demo --sdk-auth
 
 6. The json-output looks like this:
 
 		{
-		  "appId": "{appId-value}",
-		  "displayName": "{displayName-value}",
-		  "name": "{name-value}",
-		  "password": "{password-value}",
-		  "tenant": "{tenant-value}"
+		  "clientId": "{clientId-value}",
+		  "clientSecret": "{clientSecret-value}",
+		  "subscriptionId": "{subscriptionId-value}",
+		  "tenantId": "{tenantId-value}",
+		  "activeDirectoryEndpointUrl": "{activeDirectoryEndpointUrl-value}",
+		  "resourceManagerEndpointUrl": "{resourceManagerEndpointUrl-value}",
+		  "activeDirectoryGraphResourceId": "{activeDirectoryGraphResourceId-value}",
+		  "sqlManagementEndpointUrl": "{sqlManagementEndpointUrl-value}",
+		  "galleryEndpointUrl": "{galleryEndpointUrl-value}",
+		  "managementEndpointUrl": "{managementEndpointUrl-value}"
 		}
 
-7. Remove displayName and name, like this:
+7. Remove everything below **tenantId**, it's not needed, like this:
 
 		{
-		  "appId": "{appId-value}",
-		  "password": "{password-value}",
-		  "tenant": "{tenant-value}"
+		  "clientId": "{clientId-value}",
+		  "clientSecret": "{clientSecret-value}",
+		  "subscriptionId": "{subscriptionId-value}",
+		  "tenantId": "{tenantId-value}"
 		}
 
-8. Rename like this:
-
-		{
-		  "clientId": "{appId-value}",
-		  "clientSecret": "{password-value}",
-		  "tenantId": "{tenant-value}"
-		}
-
-9. Add your subscription-id like this:
-
-		{
-		  "clientId": "{appId-value}",
-		  "clientSecret": "{password-value}",
-		  "subscriptionId": "{your Azure subscription-id}",
-		  "tenantId": "{tenant-value}"
-		}
-
-10. Save the value to use for the **AZURE_CREDENTIALS** secret, see below.
+8. Save the value to use for the **AZURE_CREDENTIALS** secret, see below.
 
 ### 1.3 SITHS root-certificate
 
