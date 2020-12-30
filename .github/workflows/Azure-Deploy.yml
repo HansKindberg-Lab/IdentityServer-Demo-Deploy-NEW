@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v2
+      - name: "Setup dotnet"
+        uses: actions/setup-dotnet@v1
+        with:
+         dotnet-version: "5.0"
+      - run: dotnet build --configuration Release
+        working-directory: "Source"
       - name: "Azure sign-in"
         uses: azure/login@v1
         with:
