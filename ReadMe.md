@@ -62,16 +62,24 @@ You need an Azure service principal to use as deployment credentials from the Gi
 
 10. Save the value to use for the **AZURE_CREDENTIALS** secret, see below.
 
-### 1.3 GitHub secrets
+### 1.3 SITHS root-certificate
+
+1. Export **SITHS e-id Root CA v2** from your certificate-store as base 64-encoded X.509 and save it as a *.crt file.
+2. Remove *-----BEGIN CERTIFICATE-----*, *-----END CERTIFICATE-----* and all new-lines.
+3. Use the value for the **SITHS_ROOTCERTIFICATE** secret, see below.
+
+### 1.4 GitHub secrets
 
 To create a secret, go to **Settings** > **Secrets** > **New repository secret**.
 
 Create the following secrets, name and value:
 
+- **AZURE_APPSERVICE**: {the name of your app-service, eg your-site}
 - **AZURE_CREDENTIALS**: {the json-value from above}
 - **AZURE_LOCATION**: {the location for your resource-group, eg centralus}
 - **AZURE_RESOURCEGROUP**: {the name of your resource-group}
 - **AZURE_SUBSCRIPTION**: {the id of your Azure subscription}
+- **SITHS_ROOTCERTIFICATE**: {the exported certificate-content from above}
 
 ## 2 Notes
 

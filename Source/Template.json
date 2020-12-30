@@ -2,24 +2,101 @@
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-		"domainNameLabel": {
+		"appServiceName": {
 			"type": "string"
 		},
-		"name": {
+		"sithsRootCertificateBlob": {
+			"metadata": {
+				"description": "The text-content of the 'SITHS e-id Root CA v2.crt' file."
+			},
 			"type": "string"
 		}
 	},
+	"variables": {
+		"apiVersion": "2019-08-01",
+		"appServiceKind": "app,linux,container",
+		"appServicePlanName": "App-Service-Plan",
+		"mtlsAppServiceName": "[concat(parameters('appServiceName'), '-mtls')]",
+		"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+		"siteConfig": {
+			"appSettings": [
+				{
+					"name": "DOCKER_ENABLE_CI",
+					"value": "true",
+					"slotSetting": false
+				},
+				{
+					"name": "DOCKER_REGISTRY_SERVER_URL",
+					"value": "https://index.docker.io"
+				},
+				{
+					"name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+					"value": "false"
+				}
+			],
+			"linuxFxVersion": "DOCKER",
+			"minTlsVersion": "1.2"
+		},
+		"sithsRootCertificateName": "SITHS e-id Root CA v2"
+	},
 	"resources": [
 		{
-			"apiVersion": "[providers('Microsoft.Network', 'publicIPAddresses').apiVersions[0]]",
+			"name": "[variables('appServicePlanName')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"kind": "linux",
 			"location": "[resourceGroup().location]",
-			"name": "[parameters('name')]",
 			"properties": {
-				"dnsSettings": {
-					"domainNameLabel": "[parameters('domainNameLabel')]"
-				}
+				"reserved": true
 			},
-			"type": "Microsoft.Network/publicIPAddresses"
+			"sku": {
+				"name": "S1",
+				"tier": "Standard"
+			},
+			"type": "Microsoft.Web/serverfarms"
+		},
+		{
+			"name": "[parameters('appServiceName')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[variables('serverFarmId')]"
+			],
+			"kind": "[variables('appServiceKind')]",
+			"location": "[resourceGroup().location]",
+			"properties": {
+				"httpsOnly": true,
+				"serverFarmId": "[variables('serverFarmId')]",
+				"siteConfig": "[variables('siteConfig')]"
+			},
+			"type": "Microsoft.Web/sites"
+		},
+		{
+			"name": "[variables('mtlsAppServiceName')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[variables('serverFarmId')]"
+			],
+			"kind": "[variables('appServiceKind')]",
+			"location": "[resourceGroup().location]",
+			"properties": {
+				"clientCertEnabled": true,
+				"clientCertMode": "Required",
+				"httpsOnly": true,
+				"serverFarmId": "[variables('serverFarmId')]",
+				"siteConfig": "[variables('siteConfig')]"
+			},
+			"type": "Microsoft.Web/sites"
+		},
+		{
+			"name": "[concat(variables('mtlsAppServiceName'), '/', variables('sithsRootCertificateName'))]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', variables('mtlsAppServiceName'))]"
+			],
+			"properties": {
+				"blob": "[parameters('sithsRootCertificateBlob')]",
+				"publicCertificateLocation": "CurrentUserMy"
+			},
+			"type": "Microsoft.Web/sites/publicCertificates"
 		}
 	]
 }
