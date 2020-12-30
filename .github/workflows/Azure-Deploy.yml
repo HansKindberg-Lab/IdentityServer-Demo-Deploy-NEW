@@ -56,7 +56,7 @@ jobs:
         with:
           app-name: "${{ secrets.AZURE_APPSERVICE }}"
           app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
-          mask-inputs: false
+          mask-inputs: true
       - name: "Set MTLS App Service settings"
         uses: azure/appservice-settings@v1
         with:
@@ -85,4 +85,4 @@ jobs:
               }
             ]
           #app-settings-json: ${{ steps.azureAppServiceSettings.outputs.value }}
-          mask-inputs: false
+          mask-inputs: true
