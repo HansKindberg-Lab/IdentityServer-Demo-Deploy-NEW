@@ -19,7 +19,7 @@ namespace Project
 
 			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings(appSettingsJsonFilePath);
 
-			Assert.AreEqual(37814, azureAppServiceSettings.Length);
+			Assert.AreEqual(30156, azureAppServiceSettings.Length);
 		}
 
 		#endregion
