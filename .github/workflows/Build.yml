@@ -36,5 +36,7 @@ jobs:
         shell: pwsh
         working-directory: "Source/Project/bin/Release/net5.0"
       - name: "Temporary"
-        run: Write-Host "${{ steps.azureAppServiceSettings.outputs.value }}";
+        run: |
+          $azureAppServiceSettings = "${{ steps.azureAppServiceSettings.outputs.value }}";
+          Write-Host $azureAppServiceSettings;
         shell: pwsh
