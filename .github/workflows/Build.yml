@@ -30,7 +30,7 @@ jobs:
         id: azureAppServiceSettings
         run: |
           Add-Type -AssemblyName "Project.dll";
-          $appSettingsJsonPath = ${{ steps.appSettingsJsonPath.outputs.value }};
+          $appSettingsJsonPath = "${{ steps.appSettingsJsonPath.outputs.value }}";
           #Write-Host $appSettingsJsonPath;
 
 
