@@ -34,7 +34,7 @@
 					"value": "false"
 				}
 			],
-			"linuxFxVersion": "DOCKER",
+			"linuxFxVersion": "DOCKER|hanskindberg/identity-server:latest",
 			"minTlsVersion": "1.2"
 		},
 		"sithsRootCertificateName": "SITHS e-id Root CA v2"
