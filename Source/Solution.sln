@@ -22,9 +22,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{77547378-5C46-45C2-8DB8-B612F78732C1}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\Azure-Deploy.yml = ..\.github\workflows\Azure-Deploy.yml
-		..\.github\workflows\Build.yml = ..\.github\workflows\Build.yml
-		..\.github\workflows\main.yml = ..\.github\workflows\main.yml
-		..\.github\workflows\PowerShell.yml = ..\.github\workflows\PowerShell.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Settings", "Settings", "{E90861C5-A882-4DD3-9A3A-A20F015F5DA8}"
@@ -52,11 +49,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{D632976E-A4C1-44D5-8E1F-3435D3101E2A} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
 		{3CE22943-9CD5-4139-8573-F3FB448D3DF2} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
 		{16F29141-C1EB-43A6-8A19-2BF9D4FAE5FE} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
 		{77547378-5C46-45C2-8DB8-B612F78732C1} = {16F29141-C1EB-43A6-8A19-2BF9D4FAE5FE}
 		{E90861C5-A882-4DD3-9A3A-A20F015F5DA8} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
-		{D632976E-A4C1-44D5-8E1F-3435D3101E2A} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BF28F57D-8554-497D-8DDC-DDE08C485771}
