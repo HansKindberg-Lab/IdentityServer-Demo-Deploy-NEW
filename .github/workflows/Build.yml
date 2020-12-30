@@ -44,9 +44,9 @@ jobs:
 
 
 
-          #$azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings($appSettingsJsonPath);
-          #echo "::set-output name=value::$($azureAppServiceSettings)"
-          echo "::set-output name=value::$('arne')"
+          $azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings($appSettingsJsonPath);
+          echo "::set-output name=value::$($azureAppServiceSettings)"
+          #echo "::set-output name=value::$('arne')"
         shell: pwsh
         working-directory: "Source/Project/bin/Release/net5.0"
       - name: "Temporary"
