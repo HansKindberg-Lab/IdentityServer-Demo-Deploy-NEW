@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Global", ".Global", "{52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{D632976E-A4C1-44D5-8E1F-3435D3101E2A}"
+	ProjectSection(SolutionItems) = preProject
+		AppSettings.json = AppSettings.json
+		Template.json = Template.json
+		Test.ps1 = Test.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{3CE22943-9CD5-4139-8573-F3FB448D3DF2}"
+	ProjectSection(SolutionItems) = preProject
+		..\ReadMe.md = ..\ReadMe.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{16F29141-C1EB-43A6-8A19-2BF9D4FAE5FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{77547378-5C46-45C2-8DB8-B612F78732C1}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\Azure-Deploy.yml = ..\.github\workflows\Azure-Deploy.yml
+		..\.github\workflows\Build.yml = ..\.github\workflows\Build.yml
+		..\.github\workflows\main.yml = ..\.github\workflows\main.yml
+		..\.github\workflows\PowerShell.yml = ..\.github\workflows\PowerShell.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Settings", "Settings", "{E90861C5-A882-4DD3-9A3A-A20F015F5DA8}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+		..\.gitignore = ..\.gitignore
+		..\License = ..\License
+		..\NuGet.config = ..\NuGet.config
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project", "Project\Project.csproj", "{672F9923-CB19-40DB-9F85-59409EBDCF05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{672F9923-CB19-40DB-9F85-59409EBDCF05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{672F9923-CB19-40DB-9F85-59409EBDCF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{672F9923-CB19-40DB-9F85-59409EBDCF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{672F9923-CB19-40DB-9F85-59409EBDCF05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3CE22943-9CD5-4139-8573-F3FB448D3DF2} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
+		{16F29141-C1EB-43A6-8A19-2BF9D4FAE5FE} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
+		{77547378-5C46-45C2-8DB8-B612F78732C1} = {16F29141-C1EB-43A6-8A19-2BF9D4FAE5FE}
+		{E90861C5-A882-4DD3-9A3A-A20F015F5DA8} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
+		{D632976E-A4C1-44D5-8E1F-3435D3101E2A} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF28F57D-8554-497D-8DDC-DDE08C485771}
+	EndGlobalSection
+EndGlobal

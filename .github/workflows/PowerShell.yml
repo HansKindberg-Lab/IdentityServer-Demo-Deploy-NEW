@@ -20,13 +20,13 @@ jobs:
           {
             public class Program$id
             {
-              public static void Main()
+              public static string Get(string value)
               {
-                Console.WriteLine("Hello world!");
+                return value;
               }
             }
           }
           "@
           Add-Type -TypeDefinition $code -Language CSharp;
-          iex "[HelloWorld.Program$id]::Main()";
+          iex '[HelloWorld.Program$id]::Get("Arne")';
         shell: pwsh

@@ -1,17 +1,19 @@
-$id = get-random
 $code = @"
-using System;
-namespace HelloWorld
-{
-	public class Program$id
+	using Microsoft.Extensions.Configuration;
+	public class MyClass
 	{
-		public static void Main(){
-			Console.WriteLine("Hello world!");
+		public static int Multiply(int a, int b)
+		{
+			return a * b;
 		}
 	}
-}
 "@
- 
-Add-Type -TypeDefinition $code -Language CSharp;
-iex "[HelloWorld.Program$id]::Main()";
+<#
+Add-Type -Path Microsoft.Extensions.Configuration.dll;
+Add-Type -TypeDefinition $code;
+$result = [MyClass]::Multiply(4, 3);
+Write-Host $result;
+Read-Host;
+#>
+Write-Host $env:NUGET_PACKAGES;
 Read-Host;

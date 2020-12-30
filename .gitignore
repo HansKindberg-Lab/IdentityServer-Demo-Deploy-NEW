@@ -360,24 +360,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-# Custom
-Source/Application/Data/*
-!Source/Application/Data/Development-Signing-Certificate.pfx
-!Source/Application/Data/Development-Key-Protection-Certificate.pfx
-!Source/Application/Data/ReadMe.md
-!Source/Application/Data/Test-IdentityServer-Root-CA.cer
-
-Source/Application/Scripts/**/*.js.map
-Source/Application/Scripts/**/*.js
-Source/Application/Style/**/*.css
-Source/Application/wwwroot/Scripts/*
-!Source/Application/wwwroot/Scripts/.gitkeep
-Source/Application/wwwroot/Style/*
-!Source/Application/wwwroot/Style/.gitkeep
-!Source/Application/wwwroot/favicon.ico
-Source/Application/package-lock.json
-Source/Application/yarn.lock
-
-Source/Tests/Integration-tests/Data/*
-!Source/Tests/Integration-tests/Data/ReadMe.md
