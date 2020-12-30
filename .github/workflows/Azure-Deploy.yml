@@ -47,7 +47,7 @@ jobs:
       - name: "ARM deploy"
         uses: azure/arm-deploy@v1
         with:
-          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} sithsRootCertificateBlob=${{ secrets.SITHS_ROOTCERTIFICATE }}
+          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} appSettings=${{ steps.azureAppServiceSettings.outputs.value }} sithsRootCertificateBlob=${{ secrets.SITHS_ROOTCERTIFICATE }}
           resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           template: "Source/Template.json"

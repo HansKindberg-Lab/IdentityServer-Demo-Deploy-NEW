@@ -8,8 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{D632976E-A4C1-44D5-8E1F-3435D3101E2A}"
 	ProjectSection(SolutionItems) = preProject
 		AppSettings.json = AppSettings.json
+		Template - backup.json = Template - backup.json
 		Template.json = Template.json
-		Test.ps1 = Test.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{3CE22943-9CD5-4139-8573-F3FB448D3DF2}"

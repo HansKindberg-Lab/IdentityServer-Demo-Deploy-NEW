@@ -5,12 +5,6 @@
 		"appServiceName": {
 			"type": "string"
 		},
-		"appSettings": {
-			"type": "string"
-		},
-		"connectionStrings": {
-			"type": "string"
-		},
 		"sithsRootCertificateBlob": {
 			"metadata": {
 				"description": "The text-content of the 'SITHS e-id Root CA v2.crt' file."
@@ -25,8 +19,21 @@
 		"mtlsAppServiceName": "[concat(parameters('appServiceName'), '-mtls')]",
 		"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
 		"siteConfig": {
-			"appSettings": "[parameters('appSettings')]",
-			"connectionStrings": "[parameters('connectionStrings')]",
+			"appSettings": [
+				{
+					"name": "DOCKER_ENABLE_CI",
+					"value": "true",
+					"slotSetting": false
+				},
+				{
+					"name": "DOCKER_REGISTRY_SERVER_URL",
+					"value": "https://index.docker.io"
+				},
+				{
+					"name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+					"value": "false"
+				}
+			],
 			"linuxFxVersion": "DOCKER|hanskindberg/identity-server:latest",
 			"minTlsVersion": "1.2"
 		},
