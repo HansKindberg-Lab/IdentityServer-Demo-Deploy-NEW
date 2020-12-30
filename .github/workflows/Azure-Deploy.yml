@@ -24,7 +24,7 @@ jobs:
       - name: "ARM deploy"
         uses: azure/arm-deploy@v1
         with:
-          parameters: domainNameLabel=abcdefghij name=myPublicIpAddress
+          parameters: domainNameLabel=irkopirkopurko name=myPublicIpAddress
           resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           template: "Source/Template.json"
