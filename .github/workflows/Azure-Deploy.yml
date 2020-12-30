@@ -51,3 +51,13 @@ jobs:
           resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           template: "Source/Template.json"
+      - name: "Set App Service settings"
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: "${{ secrets.AZURE_APPSERVICE }}"
+          app-settings-json: ${{ steps.azureAppServiceSettings.outputs.value }}
+      - name: "Set MTLS App Service settings"
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: "${{ secrets.AZURE_APPSERVICE }}-mtls"
+          app-settings-json: ${{ steps.azureAppServiceSettings.outputs.value }}
