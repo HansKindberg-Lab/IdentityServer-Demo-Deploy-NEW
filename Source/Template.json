@@ -5,6 +5,9 @@
 		"appServiceName": {
 			"type": "string"
 		},
+		"databaseName": {
+			"type": "securestring"
+		},
 		"signingCertificate": {
 			"type": "securestring"
 		},
@@ -37,7 +40,7 @@
 		}
 	},
 	"variables": {
-		"apiVersion": "2019-08-01",
+		"apiVersion": "2020-09-01",
 		"appServiceKind": "app,linux,container",
 		"appServicePlanName": "App-Service-Plan",
 		"mtlsAppServiceName": "[concat(parameters('appServiceName'), '-mtls')]",
@@ -47,12 +50,13 @@
 			"minTlsVersion": "1.2"
 		},
 		"sithsRootCertificateName": "SITHS e-id Root CA v2",
+		"sqlServerApiVersion": "2020-08-01-preview",
 		"sqlServerId": "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
 	},
 	"resources": [
 		{
 			"name": "[parameters('sqlServerName')]",
-			"apiVersion": "[variables('apiVersion')]",
+			"apiVersion": "[variables('sqlServerApiVersion')]",
 			"location": "[resourceGroup().location]",
 			"properties": {
 				"administratorLogin": "[parameters('sqlServerAdministrator')]",
@@ -64,7 +68,7 @@
 		},
 		{
 			"name": "[concat(parameters('sqlServerName'), '/Allow-All-Windows-Azure-Ips')]",
-			"apiVersion": "[variables('apiVersion')]",
+			"apiVersion": "[variables('sqlServerApiVersion')]",
 			"dependsOn": [
 				"[variables('sqlServerId')]"
 			],
@@ -76,7 +80,7 @@
 		},
 		{
 			"name": "[concat(parameters('sqlServerName'), '/Client')]",
-			"apiVersion": "[variables('apiVersion')]",
+			"apiVersion": "[variables('sqlServerApiVersion')]",
 			"dependsOn": [
 				"[variables('sqlServerId')]"
 			],
@@ -87,8 +91,8 @@
 			"type": "Microsoft.Sql/servers/firewallRules"
 		},
 		{
-			"name": "[concat(parameters('sqlServerName'), '/IdentityServer-Demo')]",
-			"apiVersion": "[variables('apiVersion')]",
+			"name": "[concat(parameters('sqlServerName'), '/', parameters('databaseName'))]",
+			"apiVersion": "[variables('sqlServerApiVersion')]",
 			"dependsOn": [
 				"[variables('sqlServerId')]"
 			],

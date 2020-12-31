@@ -3,7 +3,30 @@ name: "Azure-Deploy"
 on:
   #push:
   #  branches: [ master ]
-  workflow_dispatch:  
+  workflow_dispatch:
+
+env:
+  ENSURE_USER_SQL: |
+    IF NOT EXISTS(SELECT [name] FROM [sys].[sql_logins] WHERE [name] = '${{ secrets.DATABASE_USER }}')
+    BEGIN
+      SELECT 'Creating login ''${{ secrets.DATABASE_USER }}''...' AS 'Output';
+      EXECUTE ('CREATE LOGIN [${{ secrets.DATABASE_USER }}] WITH PASSWORD = ''${{ secrets.DATABASE_USER_PASSWORD }}'';');
+    END
+    ELSE
+    BEGIN
+      SELECT 'The login ''${{ secrets.DATABASE_USER }}'' already exists.' AS 'Output';
+    END
+  ENSURE_OWNER_SQL: |
+    IF NOT EXISTS (SELECT [name] FROM [sys].[database_principals] WHERE [name] = '${{ secrets.DATABASE_USER }}' AND [type] = 'S')
+    BEGIN
+      SELECT 'Setting ''${{ secrets.DATABASE_USER }}'' as owner for database ''${{ secrets.DATABASE_NAME }}''...' AS 'Output';
+      EXECUTE ('CREATE USER [${{ secrets.DATABASE_USER }}] FOR LOGIN [${{ secrets.DATABASE_USER }}];');
+      EXECUTE ('ALTER ROLE [db_owner] ADD MEMBER [${{ secrets.DATABASE_USER }}];');
+    END
+    ELSE
+    BEGIN
+      SELECT '''${{ secrets.DATABASE_USER }}'' is already owner for database ''${{ secrets.DATABASE_NAME }}''.' AS 'Output';
+    END
 
 jobs:
   Azure-Deploy:
@@ -47,7 +70,7 @@ jobs:
       - name: "ARM deploy"
         uses: azure/arm-deploy@v1
         with:
-          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} signingCertificate=${{ secrets.SIGNING_CERTIFICATE }} signingCertificateName=${{ secrets.SIGNING_CERTIFICATE_NAME }} signingCertificatePassword=${{ secrets.SIGNING_CERTIFICATE_PASSWORD }} sithsRootCertificate=${{ secrets.SITHS_ROOTCERTIFICATE }} sqlServerAccessClientIp=${{ secrets.SQLSERVER_ACCESS_CLIENT_IP }} sqlServerAdministrator=${{ secrets.SQLSERVER_ADMINISTRATOR }} sqlServerAdministratorPassword=${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }} sqlServerName=${{ secrets.SQLSERVER_NAME }}
+          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} databaseName=${{ secrets.DATABASE_NAME }} signingCertificate=${{ secrets.SIGNING_CERTIFICATE }} signingCertificateName=${{ secrets.SIGNING_CERTIFICATE_NAME }} signingCertificatePassword=${{ secrets.SIGNING_CERTIFICATE_PASSWORD }} sithsRootCertificate=${{ secrets.SITHS_ROOTCERTIFICATE }} sqlServerAccessClientIp=${{ secrets.SQLSERVER_ACCESS_CLIENT_IP }} sqlServerAdministrator=${{ secrets.SQLSERVER_ADMINISTRATOR }} sqlServerAdministratorPassword=${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }} sqlServerName=${{ secrets.SQLSERVER_NAME }}
           resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           template: "Source/Template.json"

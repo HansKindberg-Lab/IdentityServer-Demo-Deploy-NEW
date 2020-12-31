@@ -117,6 +117,9 @@ Create the following secrets, name and value:
 - **AZURE_RESOURCEGROUP**: {the name of your resource-group}
 - **AZURE_SUBSCRIPTION**: {the id of your Azure subscription}
 - **CONNECTION_STRINGS**: [{"name": "IdentityServer", "slotSetting": false, "type": "SQLServer", "value": "Your connection-string"}]
+- **DATABASE_NAME**: {name of the identity-server-database}
+- **DATABASE_USER**: {user-name for the identity-server-database}
+- **DATABASE_USER_PASSWORD**: {password for the identity-server-database user}
 - **SIGNING_CERTIFICATE**: {the certificate-blob from above}
 - **SIGNING_CERTIFICATE_NAME**: {the certificate-name from above}
 - **SIGNING_CERTIFICATE_PASSWORD**: {the certificate-password from above}
