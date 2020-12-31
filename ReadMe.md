@@ -91,16 +91,19 @@ You need an Azure service principal to use as deployment credentials from the Gi
 
 8. Save the value to use for the **AZURE_CREDENTIALS** secret, see below.
 
-### 1.3 SITHS root-certificate
+### 1.3 Create signing-certificate
+
+1. Decide a password.
+2. Run the script [Create-Signing-Certificate.ps1](Create-Signing-Certificate.ps1), enter the password.
+3. Note the output:
+  - **Blob**
+  - **Name**
+
+### 1.4 SITHS root-certificate
 
 1. Export **SITHS e-id Root CA v2** from your certificate-store as base 64-encoded X.509 and save it as a *.crt file.
 2. Remove *-----BEGIN CERTIFICATE-----*, *-----END CERTIFICATE-----* and all new-lines.
 3. Use the value for the **SITHS_ROOTCERTIFICATE** secret, see below.
-
-### 1.4 Create signing-certificate
-
-Run the script.......................................
-Write MORE
 
 ### 1.5 GitHub secrets
 
@@ -114,6 +117,9 @@ Create the following secrets, name and value:
 - **AZURE_RESOURCEGROUP**: {the name of your resource-group}
 - **AZURE_SUBSCRIPTION**: {the id of your Azure subscription}
 - **CONNECTION_STRINGS**: [{"name": "IdentityServer", "slotSetting": false, "type": "SQLServer", "value": "Your connection-string"}]
+- **SIGNING_CERTIFICATE**: {the certificate-blob from above}
+- **SIGNING_CERTIFICATE_NAME**: {the certificate-name from above}
+- **SIGNING_CERTIFICATE_PASSWORD**: {the certificate-password from above}
 - **SITHS_ROOTCERTIFICATE**: {the exported certificate-content from above}
 
 ## 2 Notes

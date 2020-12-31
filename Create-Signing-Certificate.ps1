@@ -26,7 +26,7 @@ Export-PfxCertificate -Cert $certificate -FilePath $certificateFilePath -Passwor
 
 [System.Convert]::ToBase64String((Get-Content $certificateFilePath -Encoding Byte)) | Out-File $certificateValueFilePath;
 
-$certificateBlob = Get-Content $certificateValueFilePath;
+$blob = Get-Content $certificateValueFilePath;
 
 Remove-Item -Path "$($_certificateStoreLocation)$($certificate.Thumbprint)";
 Remove-Item -Path $certificateFilePath;
@@ -35,8 +35,11 @@ Remove-Item -Path $certificateValueFilePath;
 Write-Host;
 Write-Host "Note the following:";
 Write-Host;
-Write-Host "Certificate-blob:";
-Write-Host $certificateBlob;
+Write-Host "Blob:";
+Write-Host $blob;
+Write-Host;
+Write-Host "Name:";
+Write-Host $_name;
 Write-Host;
 Write-Host "Subject:";
 Write-Host $subject;

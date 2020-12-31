@@ -5,11 +5,20 @@
 		"appServiceName": {
 			"type": "string"
 		},
-		"sithsRootCertificateBlob": {
+		"signingCertificate": {
+			"type": "securestring"
+		},
+		"signingCertificateName": {
+			"type": "securestring"
+		},
+		"signingCertificatePassword": {
+			"type": "securestring"
+		},
+		"sithsRootCertificate": {
 			"metadata": {
 				"description": "The text-content of the 'SITHS e-id Root CA v2.crt' file."
 			},
-			"type": "string"
+			"type": "securestring"
 		}
 	},
 	"variables": {
@@ -83,13 +92,28 @@
 			"type": "Microsoft.Web/sites"
 		},
 		{
+			"name": "[parameters('signingCertificateName')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]",
+				"[resourceId('Microsoft.Web/sites', variables('mtlsAppServiceName'))]"
+			],
+			"location": "[resourceGroup().location]",
+			"properties": {
+				"password": "[parameters('signingCertificatePassword')]",
+				"pfxBlob": "[parameters('signingCertificate')]",
+				"serverFarmId": "[variables('serverFarmId')]"
+			},
+			"type": "Microsoft.Web/certificates"
+		},
+		{
 			"name": "[concat(variables('mtlsAppServiceName'), '/', variables('sithsRootCertificateName'))]",
 			"apiVersion": "[variables('apiVersion')]",
 			"dependsOn": [
 				"[resourceId('Microsoft.Web/sites', variables('mtlsAppServiceName'))]"
 			],
 			"properties": {
-				"blob": "[parameters('sithsRootCertificateBlob')]",
+				"blob": "[parameters('sithsRootCertificate')]",
 				"publicCertificateLocation": "CurrentUserMy"
 			},
 			"type": "Microsoft.Web/sites/publicCertificates"
