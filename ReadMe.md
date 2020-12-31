@@ -121,6 +121,10 @@ Create the following secrets, name and value:
 - **SIGNING_CERTIFICATE_NAME**: {the certificate-name from above}
 - **SIGNING_CERTIFICATE_PASSWORD**: {the certificate-password from above}
 - **SITHS_ROOTCERTIFICATE**: {the exported certificate-content from above}
+- **SQLSERVER_ACCESS_CLIENT_IP**: {an ip-number with access to sql-server}
+- **SQLSERVER_ADMINISTRATOR**: {user-name for the sql-server administrator}
+- **SQLSERVER_ADMINISTRATOR_PASSWORD**: {password for the sql-server administrator}
+- **SQLSERVER_NAME**: {the name of the sql-server}
 
 ## 2 Notes
 

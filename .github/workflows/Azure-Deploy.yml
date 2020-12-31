@@ -47,7 +47,7 @@ jobs:
       - name: "ARM deploy"
         uses: azure/arm-deploy@v1
         with:
-          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} signingCertificate=${{ secrets.SIGNING_CERTIFICATE }} signingCertificateName=${{ secrets.SIGNING_CERTIFICATE_NAME }} signingCertificatePassword=${{ secrets.SIGNING_CERTIFICATE_PASSWORD }} sithsRootCertificate=${{ secrets.SITHS_ROOTCERTIFICATE }}
+          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} signingCertificate=${{ secrets.SIGNING_CERTIFICATE }} signingCertificateName=${{ secrets.SIGNING_CERTIFICATE_NAME }} signingCertificatePassword=${{ secrets.SIGNING_CERTIFICATE_PASSWORD }} sithsRootCertificate=${{ secrets.SITHS_ROOTCERTIFICATE }} sqlServerAccessClientIp=${{ secrets.SQLSERVER_ACCESS_CLIENT_IP }} sqlServerAdministrator=${{ secrets.SQLSERVER_ADMINISTRATOR }} sqlServerAdministratorPassword=${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }} sqlServerName=${{ secrets.SQLSERVER_NAME }}
           resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           template: "Source/Template.json"

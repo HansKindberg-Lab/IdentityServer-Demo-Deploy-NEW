@@ -19,6 +19,21 @@
 				"description": "The text-content of the 'SITHS e-id Root CA v2.crt' file."
 			},
 			"type": "securestring"
+		},
+		"sqlServerAccessClientIp": {
+			"metadata": {
+				"description": "The ip-number that will be allowed access."
+			},
+			"type": "securestring"
+		},
+		"sqlServerAdministrator": {
+			"type": "securestring"
+		},
+		"sqlServerAdministratorPassword": {
+			"type": "securestring"
+		},
+		"sqlServerName": {
+			"type": "securestring"
 		}
 	},
 	"variables": {
@@ -31,12 +46,66 @@
 			"linuxFxVersion": "DOCKER|hanskindberg/identity-server:latest",
 			"minTlsVersion": "1.2"
 		},
-		"sithsRootCertificateName": "SITHS e-id Root CA v2"
+		"sithsRootCertificateName": "SITHS e-id Root CA v2",
+		"sqlServerId": "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
 	},
 	"resources": [
 		{
+			"name": "[parameters('sqlServerName')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"location": "[resourceGroup().location]",
+			"properties": {
+				"administratorLogin": "[parameters('sqlServerAdministrator')]",
+				"administratorLoginPassword": "[parameters('sqlServerAdministratorPassword')]",
+				"publicNetworkAccess": "Enabled",
+				"version": "12.0"
+			},
+			"type": "Microsoft.Sql/servers"
+		},
+		{
+			"name": "[concat(parameters('sqlServerName'), '/Allow-All-Windows-Azure-Ips')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[variables('sqlServerId')]"
+			],
+			"properties": {
+				"endIpAddress": "0.0.0.0",
+				"startIpAddress": "0.0.0.0"
+			},
+			"type": "Microsoft.Sql/servers/firewallRules"
+		},
+		{
+			"name": "[concat(parameters('sqlServerName'), '/Client')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[variables('sqlServerId')]"
+			],
+			"properties": {
+				"endIpAddress": "[parameters('sqlServerAccessClientIp')]",
+				"startIpAddress": "[parameters('sqlServerAccessClientIp')]"
+			},
+			"type": "Microsoft.Sql/servers/firewallRules"
+		},
+		{
+			"name": "[concat(parameters('sqlServerName'), '/IdentityServer-Demo')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[variables('sqlServerId')]"
+			],
+			"location": "[resourceGroup().location]",
+			"sku": {
+				"capacity": 10,
+				"name": "Standard",
+				"tier": "Standard"
+			},
+			"type": "Microsoft.Sql/servers/databases"
+		},
+		{
 			"name": "[variables('appServicePlanName')]",
 			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[variables('sqlServerId')]"
+			],
 			"kind": "linux",
 			"location": "[resourceGroup().location]",
 			"properties": {
