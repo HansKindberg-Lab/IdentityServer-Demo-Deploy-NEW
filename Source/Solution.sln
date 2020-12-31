@@ -24,6 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		..\.github\workflows\Azure-Deploy.yml = ..\.github\workflows\Azure-Deploy.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D6D8E846-CCEC-4662-9462-EE8B7CA71CBB}"
+	ProjectSection(SolutionItems) = preProject
+		..\Create-Signing-Certificate.ps1 = ..\Create-Signing-Certificate.ps1
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Settings", "Settings", "{E90861C5-A882-4DD3-9A3A-A20F015F5DA8}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
@@ -53,6 +58,7 @@ Global
 		{3CE22943-9CD5-4139-8573-F3FB448D3DF2} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
 		{16F29141-C1EB-43A6-8A19-2BF9D4FAE5FE} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
 		{77547378-5C46-45C2-8DB8-B612F78732C1} = {16F29141-C1EB-43A6-8A19-2BF9D4FAE5FE}
+		{D6D8E846-CCEC-4662-9462-EE8B7CA71CBB} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
 		{E90861C5-A882-4DD3-9A3A-A20F015F5DA8} = {52C4C0F5-C065-4476-8E6B-BDE8A3143A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

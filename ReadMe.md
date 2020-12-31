@@ -8,6 +8,9 @@
 
 
 Temporary begin
+
+New-SelfsignedCertificate -KeyExportPolicy Exportable -Subject "CN=MyIdsvCertificate" -KeySpec Signature -KeyAlgorithm RSA -KeyLength 2048 -HashAlgorithm SHA256 -CertStoreLocation "cert:\LocalMachine\My"
+
 [
   {
     "name": "MyName",
@@ -16,6 +19,7 @@ Temporary begin
     "slotSetting": false
   }
 ]
+
 Temporary end
 
 
@@ -93,7 +97,12 @@ You need an Azure service principal to use as deployment credentials from the Gi
 2. Remove *-----BEGIN CERTIFICATE-----*, *-----END CERTIFICATE-----* and all new-lines.
 3. Use the value for the **SITHS_ROOTCERTIFICATE** secret, see below.
 
-### 1.4 GitHub secrets
+### 1.4 Create signing-certificate
+
+Run the script.......................................
+Write MORE
+
+### 1.5 GitHub secrets
 
 To create a secret, go to **Settings** > **Secrets** > **New repository secret**.
 
