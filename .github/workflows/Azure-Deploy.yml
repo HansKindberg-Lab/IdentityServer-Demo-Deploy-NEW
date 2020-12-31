@@ -47,7 +47,21 @@ jobs:
       - name: "ARM deploy"
         uses: azure/arm-deploy@v1
         with:
-          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} appSettings=${{ steps.azureAppServiceSettings.outputs.value }} sithsRootCertificateBlob=${{ secrets.SITHS_ROOTCERTIFICATE }}
+          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} sithsRootCertificateBlob=${{ secrets.SITHS_ROOTCERTIFICATE }}
           resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           template: "Source/Template.json"
+      - name: "Set App Service settings"
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: "${{ secrets.AZURE_APPSERVICE }}"
+          app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
+          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
+          mask-inputs: true
+      - name: "Set MTLS App Service settings"
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: "${{ secrets.AZURE_APPSERVICE }}-mtls"
+          app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
+          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
+          mask-inputs: true

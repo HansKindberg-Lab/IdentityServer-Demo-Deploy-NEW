@@ -8,58 +8,6 @@
 
 
 Temporary begin
-
-
-
-      - name: "Set App Service settings"
-        uses: azure/appservice-settings@v1
-        with:
-          app-name: "${{ secrets.AZURE_APPSERVICE }}"
-          app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
-          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
-          mask-inputs: true
-      - name: "Set MTLS App Service settings"
-        uses: azure/appservice-settings@v1
-        with:
-          app-name: "${{ secrets.AZURE_APPSERVICE }}-mtls"
-          app-settings-json: |
-            [
-              {
-                "name": "DOCKER_ENABLE_CI",
-                "value": "true",
-                "slotSetting": false
-              },
-              {
-                "name": "DOCKER_REGISTRY_SERVER_URL",
-                "value": "https://index.docker.io",
-                "slotSetting": false
-              },
-              {
-                "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
-                "value": "false",
-                "slotSetting": false
-              },
-              {
-                "name": "Arne",
-                "value": "Arne-value",
-                "slotSetting": false
-              }
-            ]
-          #app-settings-json: ${{ steps.azureAppServiceSettings.outputs.value }}
-          mask-inputs: true
-
-
-
-
-
-
-
-
-
-
-
-
-
 [
   {
     "name": "MyName",
