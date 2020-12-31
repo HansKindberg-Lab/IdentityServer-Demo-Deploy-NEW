@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
@@ -49,7 +50,7 @@ namespace Project
 				settings.Add(new AzureAppServiceSetting
 				{
 					Name = configurationSection.Path.Replace(":", "__", StringComparison.Ordinal),
-					Value = configurationSection.Value
+					Value = ResolveValue(configurationSection.Value)
 				});
 			}
 			else
@@ -59,6 +60,18 @@ namespace Project
 					PopulateSettings(child, settings);
 				}
 			}
+		}
+
+		[SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase")]
+		private static string ResolveValue(string value)
+		{
+			const StringComparison stringComparison = StringComparison.OrdinalIgnoreCase;
+
+			// Boolean values need to bee lower-case in Azure App Settings, "True" / "False" does not work.
+			if(value != null && (value.Equals(bool.TrueString, stringComparison) || value.Equals(bool.FalseString, stringComparison)))
+				return value.ToLowerInvariant();
+
+			return value;
 		}
 
 		#endregion
