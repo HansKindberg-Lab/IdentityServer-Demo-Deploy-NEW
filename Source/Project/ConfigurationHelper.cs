@@ -13,7 +13,7 @@ namespace Project
 	{
 		#region Methods
 
-		public static string ConvertToAzureAppServiceSettings(string appSettingsJsonPath, bool indent = false, string signingCertificateThumbprint = null, IEnumerable<string> validationCertificateThumbprints = null)
+		public static string ConvertToAzureAppServiceSettings(string appSettingsJsonPath, bool indent = false, string signingCertificateThumbprint = null, string validationCertificateThumbprints = null)
 		{
 			if(appSettingsJsonPath == null)
 				throw new ArgumentNullException(nameof(appSettingsJsonPath));
@@ -46,7 +46,7 @@ namespace Project
 			return $"CERT:\\CurrentUser\\My\\{thumbprint}";
 		}
 
-		private static void PopulateCertificateSettings(IList<AzureAppServiceSetting> settings, string signingCertificateThumbprint, IEnumerable<string> validationCertificateThumbprints)
+		private static void PopulateCertificateSettings(IList<AzureAppServiceSetting> settings, string signingCertificateThumbprint, string validationCertificateThumbprints)
 		{
 			if(settings == null)
 				throw new ArgumentNullException(nameof(settings));
@@ -73,11 +73,11 @@ namespace Project
 				});
 			}
 
-			validationCertificateThumbprints = (validationCertificateThumbprints ?? Enumerable.Empty<string>()).ToArray();
+			var validationCertificateThumbprintsArray = (validationCertificateThumbprints ?? string.Empty).Split(',').Select(item => item.Trim()).Where(item => !string.IsNullOrEmpty(item)).ToArray();
 
-			for(var i = 0; i < validationCertificateThumbprints.Count(); i++)
+			for(var i = 0; i < validationCertificateThumbprintsArray.Length; i++)
 			{
-				var validationCertificateThumbprint = validationCertificateThumbprints.ElementAt(i);
+				var validationCertificateThumbprint = validationCertificateThumbprintsArray[i];
 
 				thumbprints.Add(validationCertificateThumbprint);
 
@@ -112,6 +112,7 @@ namespace Project
 			if(settings == null)
 				throw new ArgumentNullException(nameof(settings));
 
+			// ReSharper disable MergeSequentialPatterns
 			if(configuration is IConfigurationSection configurationSection && configurationSection.Value != null)
 			{
 				settings.Add(new AzureAppServiceSetting
@@ -127,6 +128,7 @@ namespace Project
 					PopulateSettings(child, settings);
 				}
 			}
+			// ReSharper restore MergeSequentialPatterns
 		}
 
 		[SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase")]

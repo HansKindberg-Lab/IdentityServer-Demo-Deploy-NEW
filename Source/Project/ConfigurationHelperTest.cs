@@ -17,7 +17,7 @@ namespace Project
 			var appSettingsJsonFilePath = Path.Combine(projectDirectory.Parent.FullName, "AppSettings.json");
 			// ReSharper restore PossibleNullReferenceException
 
-			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings(appSettingsJsonFilePath, true, "Signing-certificate-thumbprint", new[] {"Validation-certificate-thumbprint-1", "Validation-certificate-thumbprint-2", "Validation-certificate-thumbprint-3"});
+			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings(appSettingsJsonFilePath, true, "Signing-certificate-thumbprint", "Validation-certificate-thumbprint-1,Validation-certificate-thumbprint-2            , Validation-certificate-thumbprint-3     ,  , ,");
 			Assert.AreEqual(1799, azureAppServiceSettings.Length);
 		}
 
@@ -30,7 +30,7 @@ namespace Project
 			// ReSharper restore PossibleNullReferenceException
 
 			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings(appSettingsJsonFilePath, true);
-			Assert.AreEqual(33905, azureAppServiceSettings.Length);
+			Assert.AreEqual(33533, azureAppServiceSettings.Length);
 		}
 
 		#endregion
