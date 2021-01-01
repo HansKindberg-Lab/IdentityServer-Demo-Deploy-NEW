@@ -1,0 +1,40 @@
+name: "Test"
+
+on:
+  #push:
+  #  branches: [ master ]
+  workflow_dispatch:
+
+env:
+  ENSURE_USER_SQL: |
+    IF NOT EXISTS(SELECT [name] FROM [sys].[sql_logins] WHERE [name] = '${{ secrets.DATABASE_USER }}')
+    BEGIN
+      SELECT 'Creating login ''${{ secrets.DATABASE_USER }}''...' AS 'Output';
+      EXECUTE ('CREATE LOGIN [${{ secrets.DATABASE_USER }}] WITH PASSWORD = ''${{ secrets.DATABASE_USER_PASSWORD }}'';');
+    END
+    ELSE
+    BEGIN
+      SELECT 'The login ''${{ secrets.DATABASE_USER }}'' already exists.' AS 'Output';
+    END
+  ENSURE_OWNER_SQL: |
+    IF NOT EXISTS (SELECT [name] FROM [sys].[database_principals] WHERE [name] = '${{ secrets.DATABASE_USER }}' AND [type] = 'S')
+    BEGIN
+      SELECT 'Setting ''${{ secrets.DATABASE_USER }}'' as owner for database ''${{ secrets.DATABASE_NAME }}''...' AS 'Output';
+      EXECUTE ('CREATE USER [${{ secrets.DATABASE_USER }}] FOR LOGIN [${{ secrets.DATABASE_USER }}];');
+      EXECUTE ('ALTER ROLE [db_owner] ADD MEMBER [${{ secrets.DATABASE_USER }}];');
+    END
+    ELSE
+    BEGIN
+      SELECT '''${{ secrets.DATABASE_USER }}'' is already owner for database ''${{ secrets.DATABASE_NAME }}''.' AS 'Output';
+    END
+
+jobs:
+  Test:
+    name: "Test"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Secret test"
+        run: |
+          $secret = ${{ secrets.TEST_SECRET }};
+          Write-Host $secret.GetType();
+        shell: pwsh

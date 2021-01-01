@@ -9,7 +9,7 @@
 
 Temporary begin
 
-New-SelfsignedCertificate -KeyExportPolicy Exportable -Subject "CN=MyIdsvCertificate" -KeySpec Signature -KeyAlgorithm RSA -KeyLength 2048 -HashAlgorithm SHA256 -CertStoreLocation "cert:\LocalMachine\My"
+https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-manage-powershell-core?view=sql-server-ver15
 
 [
   {
@@ -98,6 +98,7 @@ You need an Azure service principal to use as deployment credentials from the Gi
 3. Note the output:
   - **Blob**
   - **Name**
+  - **Thumbprint**
 
 ### 1.4 SITHS root-certificate
 
@@ -123,6 +124,7 @@ Create the following secrets, name and value:
 - **SIGNING_CERTIFICATE**: {the certificate-blob from above}
 - **SIGNING_CERTIFICATE_NAME**: {the certificate-name from above}
 - **SIGNING_CERTIFICATE_PASSWORD**: {the certificate-password from above}
+- **SIGNING_CERTIFICATE_THUMBPRINT**: {the certificate-password from above}
 - **SITHS_ROOTCERTIFICATE**: {the exported certificate-content from above}
 - **SQLSERVER_ACCESS_CLIENT_IP**: {an ip-number with access to sql-server}
 - **SQLSERVER_ADMINISTRATOR**: {user-name for the sql-server administrator}

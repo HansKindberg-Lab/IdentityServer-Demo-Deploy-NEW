@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Project.Models;
@@ -12,7 +13,7 @@ namespace Project
 	{
 		#region Methods
 
-		public static string ConvertToAzureAppServiceSettings(string appSettingsJsonPath, bool indent = false)
+		public static string ConvertToAzureAppServiceSettings(string appSettingsJsonPath, bool indent = false, string signingCertificateThumbprint = null, IEnumerable<string> validationCertificateThumbprints = null)
 		{
 			if(appSettingsJsonPath == null)
 				throw new ArgumentNullException(nameof(appSettingsJsonPath));
@@ -27,6 +28,9 @@ namespace Project
 				configurationBuilder.AddJsonStream(stream);
 				var configuration = configurationBuilder.Build();
 				var settings = new List<AzureAppServiceSetting>();
+
+				PopulateCertificateSettings(settings, signingCertificateThumbprint, validationCertificateThumbprints);
+
 				PopulateSettings(configuration, settings);
 
 				return JsonSerializer.Serialize(settings, new JsonSerializerOptions
@@ -35,6 +39,69 @@ namespace Project
 				});
 			}
 			// ReSharper restore ConvertToUsingDeclaration
+		}
+
+		private static string CreateCertificateStorePath(string thumbprint)
+		{
+			return $"CERT:\\CurrentUser\\My\\{thumbprint}";
+		}
+
+		private static void PopulateCertificateSettings(IList<AzureAppServiceSetting> settings, string signingCertificateThumbprint, IEnumerable<string> validationCertificateThumbprints)
+		{
+			if(settings == null)
+				throw new ArgumentNullException(nameof(settings));
+
+			const string separator = "__";
+			const string settingPrefix = "IdentityServer";
+			const string type = "RegionOrebroLan.Security.Cryptography.Configuration.StoreResolverOptions, RegionOrebroLan";
+			var thumbprints = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			if(signingCertificateThumbprint != null)
+			{
+				thumbprints.Add(signingCertificateThumbprint);
+
+				settings.Add(new AzureAppServiceSetting
+				{
+					Name = $"{settingPrefix}{separator}SigningCertificate{separator}Options{separator}Path",
+					Value = CreateCertificateStorePath(signingCertificateThumbprint)
+				});
+
+				settings.Add(new AzureAppServiceSetting
+				{
+					Name = $"{settingPrefix}{separator}SigningCertificate{separator}Type",
+					Value = type
+				});
+			}
+
+			validationCertificateThumbprints = (validationCertificateThumbprints ?? Enumerable.Empty<string>()).ToArray();
+
+			for(var i = 0; i < validationCertificateThumbprints.Count(); i++)
+			{
+				var validationCertificateThumbprint = validationCertificateThumbprints.ElementAt(i);
+
+				thumbprints.Add(validationCertificateThumbprint);
+
+				settings.Add(new AzureAppServiceSetting
+				{
+					Name = $"{settingPrefix}{separator}ValidationCertificates{separator}{i}{separator}Options{separator}Path",
+					Value = CreateCertificateStorePath(validationCertificateThumbprint)
+				});
+
+				settings.Add(new AzureAppServiceSetting
+				{
+					Name = $"{settingPrefix}{separator}ValidationCertificates{separator}{i}{separator}Type",
+					Value = type
+				});
+			}
+
+			if(thumbprints.Any())
+			{
+				settings.Add(new AzureAppServiceSetting
+				{
+					Name = "WEBSITE_LOAD_CERTIFICATES",
+					Value = string.Join(",", thumbprints)
+				});
+			}
 		}
 
 		private static void PopulateSettings(IConfiguration configuration, IList<AzureAppServiceSetting> settings)
