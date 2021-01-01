@@ -130,7 +130,8 @@ Create the following secrets, name and value:
 - **SQLSERVER_ADMINISTRATOR**: {user-name for the sql-server administrator}
 - **SQLSERVER_ADMINISTRATOR_PASSWORD**: {password for the sql-server administrator}
 - **SQLSERVER_NAME**: {the name of the sql-server}
-- **VALIDATION_CERTIFICATE_THUMBPRINTS**: {all validation-certificate-thumbprints, all previous signing-certificate-thumbprints, if you want previous encryptions to still work after renewing the signing-certificate}
+- **VALIDATION_CERTIFICATE_THUMBPRINTS**: {empty, string or comma-separated string of values}
+  - All validation-certificate-thumbprints. That is all previous signing-certificate-thumbprints, If you want previous encryptions to still work after renewing the signing-certificate.
 
 ## 2 Notes
 

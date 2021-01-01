@@ -53,8 +53,11 @@ jobs:
         id: azureAppServiceSettings
         run: |
           Add-Type -AssemblyName "Project.dll";
+          $appServiceName = "${{ secrets.AZURE_APPSERVICE }}";
           $appSettingsJsonPath = "${{ steps.appSettingsJsonPath.outputs.value }}";
-          $azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings($appSettingsJsonPath);
+          $signingCertificateThumbprint = "${{ secrets.SIGNING_CERTIFICATE_THUMBPRINT }}";
+          $validationCertificateThumbprints = "${{ secrets.VALIDATION_CERTIFICATE_THUMBPRINTS }}";
+          $azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings($appServiceName, $appSettingsJsonPath, $false, $signingCertificateThumbprint, $validationCertificateThumbprints);
           echo "::set-output name=value::$($azureAppServiceSettings)"
         shell: pwsh
         working-directory: "Source/Project/bin/Release/net5.0"

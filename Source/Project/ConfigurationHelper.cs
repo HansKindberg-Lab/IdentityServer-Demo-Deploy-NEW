@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -11,10 +10,20 @@ namespace Project
 {
 	public static class ConfigurationHelper
 	{
+		#region Fields
+
+		private const string _identityServerSettingPrefix = "IdentityServer";
+		private const string _separator = "__";
+
+		#endregion
+
 		#region Methods
 
-		public static string ConvertToAzureAppServiceSettings(string appSettingsJsonPath, bool indent = false, string signingCertificateThumbprint = null, string validationCertificateThumbprints = null)
+		public static string ConvertToAzureAppServiceSettings(string appServiceName, string appSettingsJsonPath, bool indent = false, string signingCertificateThumbprint = null, string validationCertificateThumbprints = null)
 		{
+			if(appServiceName == null)
+				throw new ArgumentNullException(nameof(appServiceName));
+
 			if(appSettingsJsonPath == null)
 				throw new ArgumentNullException(nameof(appSettingsJsonPath));
 
@@ -28,6 +37,8 @@ namespace Project
 				configurationBuilder.AddJsonStream(stream);
 				var configuration = configurationBuilder.Build();
 				var settings = new List<AzureAppServiceSetting>();
+
+				PopulateIdentityServerSettings(appServiceName, settings);
 
 				PopulateCertificateSettings(settings, signingCertificateThumbprint, validationCertificateThumbprints);
 
@@ -51,8 +62,6 @@ namespace Project
 			if(settings == null)
 				throw new ArgumentNullException(nameof(settings));
 
-			const string separator = "__";
-			const string settingPrefix = "IdentityServer";
 			const string type = "RegionOrebroLan.Security.Cryptography.Configuration.StoreResolverOptions, RegionOrebroLan";
 			var thumbprints = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -62,13 +71,13 @@ namespace Project
 
 				settings.Add(new AzureAppServiceSetting
 				{
-					Name = $"{settingPrefix}{separator}SigningCertificate{separator}Options{separator}Path",
+					Name = $"{_identityServerSettingPrefix}{_separator}SigningCertificate{_separator}Options{_separator}Path",
 					Value = CreateCertificateStorePath(signingCertificateThumbprint)
 				});
 
 				settings.Add(new AzureAppServiceSetting
 				{
-					Name = $"{settingPrefix}{separator}SigningCertificate{separator}Type",
+					Name = $"{_identityServerSettingPrefix}{_separator}SigningCertificate{_separator}Type",
 					Value = type
 				});
 			}
@@ -83,13 +92,13 @@ namespace Project
 
 				settings.Add(new AzureAppServiceSetting
 				{
-					Name = $"{settingPrefix}{separator}ValidationCertificates{separator}{i}{separator}Options{separator}Path",
+					Name = $"{_identityServerSettingPrefix}{_separator}ValidationCertificates{_separator}{i}{_separator}Options{_separator}Path",
 					Value = CreateCertificateStorePath(validationCertificateThumbprint)
 				});
 
 				settings.Add(new AzureAppServiceSetting
 				{
-					Name = $"{settingPrefix}{separator}ValidationCertificates{separator}{i}{separator}Type",
+					Name = $"{_identityServerSettingPrefix}{_separator}ValidationCertificates{_separator}{i}{_separator}Type",
 					Value = type
 				});
 			}
@@ -102,6 +111,33 @@ namespace Project
 					Value = string.Join(",", thumbprints)
 				});
 			}
+		}
+
+		private static void PopulateIdentityServerSettings(string appServiceName, IList<AzureAppServiceSetting> settings)
+		{
+			if(appServiceName == null)
+				throw new ArgumentNullException(nameof(appServiceName));
+
+			if(settings == null)
+				throw new ArgumentNullException(nameof(settings));
+
+			settings.Add(new AzureAppServiceSetting
+			{
+				Name = $"{_identityServerSettingPrefix}{_separator}IssuerUri",
+				Value = $"https://{appServiceName}.azurewebsites.net"
+			});
+
+			settings.Add(new AzureAppServiceSetting
+			{
+				Name = $"{_identityServerSettingPrefix}{_separator}MutualTls{_separator}DomainName",
+				Value = $"{appServiceName}-mtls.azurewebsites.net"
+			});
+
+			settings.Add(new AzureAppServiceSetting
+			{
+				Name = $"{_identityServerSettingPrefix}{_separator}MutualTls{_separator}Enabled",
+				Value = "true"
+			});
 		}
 
 		private static void PopulateSettings(IConfiguration configuration, IList<AzureAppServiceSetting> settings)
@@ -117,7 +153,7 @@ namespace Project
 			{
 				settings.Add(new AzureAppServiceSetting
 				{
-					Name = configurationSection.Path.Replace(":", "__", StringComparison.Ordinal),
+					Name = configurationSection.Path.Replace(":", _separator, StringComparison.Ordinal),
 					Value = ResolveValue(configurationSection.Value)
 				});
 			}
@@ -131,7 +167,6 @@ namespace Project
 			// ReSharper restore MergeSequentialPatterns
 		}
 
-		[SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase")]
 		private static string ResolveValue(string value)
 		{
 			const StringComparison stringComparison = StringComparison.OrdinalIgnoreCase;
