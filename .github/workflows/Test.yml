@@ -54,14 +54,9 @@ jobs:
         run: |
           Add-Type -AssemblyName "Project.dll";
           $appSettingsJsonPath = "${{ steps.appSettingsJsonPath.outputs.value }}";
-
-          Write-Host $appSettingsJsonPath;
-
-          $azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings($appSettingsJsonPath, false, "", "");
+          $signingCertificateThumbprint = "${{ secrets.SIGNING_CERTIFICATE_THUMBPRINT }}";
+          $validationCertificateThumbprints = "${{ secrets.VALIDATION_CERTIFICATE_THUMBPRINTS }}";
+          $azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings($appSettingsJsonPath, false, $signingCertificateThumbprint, $validationCertificateThumbprints);
           echo "::set-output name=value::$($azureAppServiceSettings)"
         shell: pwsh
         working-directory: "Source/Project/bin/Release/net5.0"
-      - name: "Azure sign-in"
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
