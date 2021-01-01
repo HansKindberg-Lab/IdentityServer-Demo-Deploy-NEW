@@ -121,15 +121,31 @@ Create the following secrets, name and value:
 - **DATABASE_NAME**: {name of the identity-server-database}
 - **DATABASE_USER**: {user-name for the identity-server-database}
 - **DATABASE_USER_PASSWORD**: {password for the identity-server-database user}
+
+
+
+
+
+
 - **SIGNING_CERTIFICATE**: {the certificate-blob from above}
 - **SIGNING_CERTIFICATE_NAME**: {the certificate-name from above}
 - **SIGNING_CERTIFICATE_PASSWORD**: {the certificate-password from above}
 - **SIGNING_CERTIFICATE_THUMBPRINT**: {the certificate-password from above}
+
+
+
+
+
+
 - **SITHS_ROOTCERTIFICATE**: {the exported certificate-content from above}
 - **SQLSERVER_ACCESS_CLIENT_IP**: {an ip-number with access to sql-server}
 - **SQLSERVER_ADMINISTRATOR**: {user-name for the sql-server administrator}
 - **SQLSERVER_ADMINISTRATOR_PASSWORD**: {password for the sql-server administrator}
 - **SQLSERVER_NAME**: {the name of the sql-server}
+
+
+
+- **VALIDATION_CERTIFICATE_THUMBPRINTS**: {all validation-certificate-thumbprints, all previous signing-certificate-thumbprints, if you want previous encryptions to still work after renewing the signing-certificate}
 
 ## 2 Notes
 

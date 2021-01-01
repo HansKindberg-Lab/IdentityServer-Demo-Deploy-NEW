@@ -35,6 +35,5 @@ jobs:
     steps:
       - name: "Secret test"
         run: |
-          $secret = ${{ secrets.TEST_SECRET }};
-          Write-Host $secret.GetType();
+          WRITE-HOST ${{ secrets.TEST_SECRET }};
         shell: pwsh
