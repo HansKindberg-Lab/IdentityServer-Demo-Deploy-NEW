@@ -1,4 +1,4 @@
-name: "Azure-Deploy"
+name: "Test"
 
 on:
   #push:
@@ -29,8 +29,8 @@ env:
     END
 
 jobs:
-  Azure-Deploy:
-    name: "Azure-Deploy"
+  Test:
+    name: "Test"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout code"
