@@ -61,9 +61,9 @@ You need an Azure service principal to use as deployment credentials from the Gi
 2. Click the **Cloud Shell** button, [>_], up in the black bar to launch the Cloud Shell.
 3. Create a storage if you not already have one. You will be asked to do so if you do not have one.
 4. Make sure the environment is set to **Bash** (Bash/PowerShell). On the left in the grey **Cloud Shell** bar.
-5. Run the following command and copy the json-output
+5. Run the following command and copy the json-output (change to your preferred name)
 
-		az ad sp create-for-rbac --name HansKindberg-IdentityServer-Demo --sdk-auth
+		az ad sp create-for-rbac --name Your-IdentityServer-Demo --sdk-auth
 
 6. The json-output looks like this:
 
