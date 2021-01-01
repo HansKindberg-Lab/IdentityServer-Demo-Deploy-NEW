@@ -57,30 +57,50 @@ namespace Project
 			return $"CERT:\\CurrentUser\\My\\{thumbprint}";
 		}
 
+		private static void PopulateCertificateSetting(string settingPrefix, IList<AzureAppServiceSetting> settings, string thumbprint, ISet<string> thumbprints)
+		{
+			if(settingPrefix == null)
+				throw new ArgumentNullException(nameof(settingPrefix));
+
+			if(settings == null)
+				throw new ArgumentNullException(nameof(settings));
+
+			if(thumbprint == null)
+				throw new ArgumentNullException(nameof(thumbprint));
+
+			if(thumbprints == null)
+				throw new ArgumentNullException(nameof(thumbprints));
+
+			thumbprints.Add(thumbprint);
+
+			settings.Add(new AzureAppServiceSetting
+			{
+				Name = $"{settingPrefix}{_separator}Options{_separator}Path",
+				Value = CreateCertificateStorePath(thumbprint)
+			});
+
+			settings.Add(new AzureAppServiceSetting
+			{
+				Name = $"{settingPrefix}{_separator}Options{_separator}ValidOnly",
+				Value = "false"
+			});
+
+			settings.Add(new AzureAppServiceSetting
+			{
+				Name = $"{settingPrefix}{_separator}Type",
+				Value = "RegionOrebroLan.Security.Cryptography.Configuration.StoreResolverOptions, RegionOrebroLan"
+			});
+		}
+
 		private static void PopulateCertificateSettings(IList<AzureAppServiceSetting> settings, string signingCertificateThumbprint, string validationCertificateThumbprints)
 		{
 			if(settings == null)
 				throw new ArgumentNullException(nameof(settings));
 
-			const string type = "RegionOrebroLan.Security.Cryptography.Configuration.StoreResolverOptions, RegionOrebroLan";
 			var thumbprints = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
 			if(signingCertificateThumbprint != null)
-			{
-				thumbprints.Add(signingCertificateThumbprint);
-
-				settings.Add(new AzureAppServiceSetting
-				{
-					Name = $"{_identityServerSettingPrefix}{_separator}SigningCertificate{_separator}Options{_separator}Path",
-					Value = CreateCertificateStorePath(signingCertificateThumbprint)
-				});
-
-				settings.Add(new AzureAppServiceSetting
-				{
-					Name = $"{_identityServerSettingPrefix}{_separator}SigningCertificate{_separator}Type",
-					Value = type
-				});
-			}
+				PopulateCertificateSetting($"{_identityServerSettingPrefix}{_separator}SigningCertificate", settings, signingCertificateThumbprint, thumbprints);
 
 			var validationCertificateThumbprintsArray = (validationCertificateThumbprints ?? string.Empty).Split(',').Select(item => item.Trim()).Where(item => !string.IsNullOrEmpty(item)).ToArray();
 
@@ -88,19 +108,7 @@ namespace Project
 			{
 				var validationCertificateThumbprint = validationCertificateThumbprintsArray[i];
 
-				thumbprints.Add(validationCertificateThumbprint);
-
-				settings.Add(new AzureAppServiceSetting
-				{
-					Name = $"{_identityServerSettingPrefix}{_separator}ValidationCertificates{_separator}{i}{_separator}Options{_separator}Path",
-					Value = CreateCertificateStorePath(validationCertificateThumbprint)
-				});
-
-				settings.Add(new AzureAppServiceSetting
-				{
-					Name = $"{_identityServerSettingPrefix}{_separator}ValidationCertificates{_separator}{i}{_separator}Type",
-					Value = type
-				});
+				PopulateCertificateSetting($"{_identityServerSettingPrefix}{_separator}ValidationCertificates{_separator}{i}", settings, validationCertificateThumbprint, thumbprints);
 			}
 
 			if(thumbprints.Any())
