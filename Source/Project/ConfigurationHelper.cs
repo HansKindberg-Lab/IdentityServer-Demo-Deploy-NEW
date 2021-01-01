@@ -54,7 +54,8 @@ namespace Project
 
 		private static string CreateCertificateStorePath(string thumbprint)
 		{
-			return $"CERT:\\CurrentUser\\My\\{thumbprint}";
+			//return $"CERT:\\CurrentUser\\My\\{thumbprint}";
+			return $"CERT:\\LocalMachine\\My\\{thumbprint}";
 		}
 
 		private static void PopulateCertificateSetting(string settingPrefix, IList<AzureAppServiceSetting> settings, string thumbprint, ISet<string> thumbprints)

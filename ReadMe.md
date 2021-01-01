@@ -9,6 +9,8 @@
 
 Temporary begin
 
+https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate-in-code
+
 https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-manage-powershell-core?view=sql-server-ver15
 
 [
