@@ -94,7 +94,8 @@ You need an Azure service principal to use as deployment credentials from the Gi
 ### 1.3 Create signing-certificate
 
 1. Decide a password.
-2. Run the script [Create-Signing-Certificate.ps1](Create-Signing-Certificate.ps1), enter the password.
+2. Run the script [Create-Signing-Certificate.ps1](Create-Signing-Certificate.ps1), enter index and the password.
+	  - The index is 1 for the first generation, 2 for the second generation etc. 
 3. Note the output:
   - **Blob**
   - **Name**

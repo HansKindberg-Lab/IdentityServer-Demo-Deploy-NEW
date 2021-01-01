@@ -1,11 +1,13 @@
 param
 (
 	[Parameter(Mandatory)]
+	[uint32]$index,
+	[Parameter(Mandatory)]
 	[SecureString]$password
 )
 
 $_certificateStoreLocation = "CERT:\CurrentUser\My\";
-$_name = "Identity-Server-Signing";
+$_name = "Identity-Server-Signing-$($index)";
 $_subject = "CN=$($_name)";
 
 $certificate = New-SelfsignedCertificate `
