@@ -37,5 +37,5 @@ jobs:
         run: |
           Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
-          Invoke-Sqlcmd -ConnectionString "${{ secrets.CONNECTION_STRING }}" -Query "SELECT COUNT(*) FROM [Entries];";
+          Invoke-Sqlcmd -ConnectionString "${{ secrets.ARNE }}" -Query "SELECT COUNT(*) FROM [Entries];";
         shell: pwsh
