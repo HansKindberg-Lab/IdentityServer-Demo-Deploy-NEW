@@ -36,6 +36,6 @@ jobs:
       - name: "Test"
         run: |
           #Install-Module -Force -Name SqlServer -Repository PSGallery;
-          #Import-Module SqlServer;
+          Import-Module SqlServer;
           Invoke-Sqlcmd;
         shell: pwsh
