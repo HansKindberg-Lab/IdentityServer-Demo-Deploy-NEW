@@ -37,7 +37,6 @@ jobs:
         run: |
           Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
-          Invoke-Sqlcmd -Query "SELECT 'Arne' AS Yeah;";
           $StringArray = "MYVAR1='String1'", "MYVAR2='String2'";
           Invoke-Sqlcmd -Query "SELECT `$(MYVAR1) AS Var1, `$(MYVAR2) AS Var2" -Variable $StringArray;
         shell: pwsh
