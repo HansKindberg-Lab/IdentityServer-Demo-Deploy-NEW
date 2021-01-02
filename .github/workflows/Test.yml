@@ -35,6 +35,6 @@ jobs:
     steps:
       - name: "Test"
         run: |
-          Install-Module -Name SqlServer -Scope CurrentUser;
+          Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
         shell: pwsh
