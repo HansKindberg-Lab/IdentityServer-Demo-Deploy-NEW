@@ -37,6 +37,6 @@ jobs:
         run: |
           Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
-          Invoke-Sqlcmd -Database "master" -Password "${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }} -Query "$ENSURE_USER_SQL" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
-          Invoke-Sqlcmd -Database "master" -Password "${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }} -Query "$ENSURE_OWNER_SQL" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
+          Invoke-Sqlcmd -Database "master" -Password "${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}" -Query "$ENSURE_USER_SQL" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
+          Invoke-Sqlcmd -Database "master" -Password "${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}" -Query "$ENSURE_OWNER_SQL" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
         shell: pwsh
