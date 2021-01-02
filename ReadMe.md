@@ -9,10 +9,6 @@
 
 Temporary begin
 
-https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate-in-code
-
-https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-manage-powershell-core?view=sql-server-ver15
-
 [
   {
     "name": "MyName",
@@ -141,3 +137,6 @@ Create the following secrets, name and value:
 - https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions
 - https://azuredevopslabs.com/labs/devopsserver/azureserviceprincipal/#exercise-1-creating-an-azure-service-principal-for-use-as-an-azure-resource-manager-service-connection
 - https://github.com/Azure/actions-workflow-samples/tree/master/AzureCLI
+- https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate-in-code
+- https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate-in-code#load-certificate-in-linuxwindows-containers
+- https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-manage-powershell-core/

@@ -18,7 +18,7 @@ namespace Project
 			// ReSharper restore PossibleNullReferenceException
 
 			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings("my-identityserver-demo", appSettingsJsonFilePath, true, "Signing-certificate-thumbprint", "Validation-certificate-thumbprint-1,Validation-certificate-thumbprint-2            , Validation-certificate-thumbprint-3     ,  , ,");
-			Assert.AreEqual(2753, azureAppServiceSettings.Length);
+			Assert.AreEqual(2741, azureAppServiceSettings.Length);
 		}
 
 		[TestMethod]

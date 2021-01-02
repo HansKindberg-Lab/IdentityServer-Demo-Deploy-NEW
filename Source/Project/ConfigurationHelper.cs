@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -13,6 +14,8 @@ namespace Project
 		#region Fields
 
 		private const string _identityServerSettingPrefix = "IdentityServer";
+		private const string _privateCertificatePathFormat = "/var/ssl/private/{0}.p12";
+		private const string _publicCertificatePathFormat = "/var/ssl/certs/{0}.der";
 		private const string _separator = "__";
 
 		#endregion
@@ -52,12 +55,6 @@ namespace Project
 			// ReSharper restore ConvertToUsingDeclaration
 		}
 
-		private static string CreateCertificateStorePath(string thumbprint)
-		{
-			//return $"CERT:\\CurrentUser\\My\\{thumbprint}";
-			return $"CERT:\\LocalMachine\\My\\{thumbprint}";
-		}
-
 		private static void PopulateCertificateSetting(string settingPrefix, IList<AzureAppServiceSetting> settings, string thumbprint, ISet<string> thumbprints)
 		{
 			if(settingPrefix == null)
@@ -77,7 +74,7 @@ namespace Project
 			settings.Add(new AzureAppServiceSetting
 			{
 				Name = $"{settingPrefix}{_separator}Options{_separator}Path",
-				Value = CreateCertificateStorePath(thumbprint)
+				Value = string.Format(CultureInfo.InvariantCulture, _privateCertificatePathFormat, thumbprint)
 			});
 
 			settings.Add(new AzureAppServiceSetting
