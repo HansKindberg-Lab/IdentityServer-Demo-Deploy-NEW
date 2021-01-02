@@ -37,6 +37,5 @@ jobs:
         run: |
           Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
-          $StringArray = "MYVAR1='String1'", "MYVAR2='String2'";
-          Invoke-Sqlcmd -Query "SELECT `$(MYVAR1) AS Var1, `$(MYVAR2) AS Var2" -Variable $StringArray;
+          Invoke-Sqlcmd -ConnectionString "${{ secrets.CONNECTION_STRING }}" -Query "SELECT COUNT(*) FROM [Arne];";
         shell: pwsh
