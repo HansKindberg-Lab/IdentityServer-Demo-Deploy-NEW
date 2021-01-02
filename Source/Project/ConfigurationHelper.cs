@@ -79,14 +79,8 @@ namespace Project
 
 			settings.Add(new AzureAppServiceSetting
 			{
-				Name = $"{settingPrefix}{_separator}Options{_separator}ValidOnly",
-				Value = "false"
-			});
-
-			settings.Add(new AzureAppServiceSetting
-			{
 				Name = $"{settingPrefix}{_separator}Type",
-				Value = "RegionOrebroLan.Security.Cryptography.Configuration.StoreResolverOptions, RegionOrebroLan"
+				Value = "RegionOrebroLan.Security.Cryptography.Configuration.FileResolverOptions, RegionOrebroLan"
 			});
 		}
 
