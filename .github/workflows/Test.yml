@@ -37,5 +37,5 @@ jobs:
         run: |
           Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
-          Invoke-Sqlcmd;
+          Invoke-Sqlcmd -Query "SELECT 'Arne' AS Yeah;";
         shell: pwsh
