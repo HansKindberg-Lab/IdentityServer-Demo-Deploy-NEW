@@ -33,61 +33,7 @@ jobs:
     name: "Test"
     runs-on: "ubuntu-latest"
     steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v2
-      - name: "Set up dotnet"
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: "5.0"
-      - name: "Build"
-        run: dotnet build --configuration Release
-        working-directory: "Source"
-      - name: "Get AppSettings.json path"
-        id: appSettingsJsonPath
+      - name: "Test"
         run: |
-          $appSettingsJsonPath = (Get-ChildItem -Filter "AppSettings.json").FullName;
-          echo "::set-output name=value::$($appSettingsJsonPath)";
+          Import-Module SqlServer;
         shell: pwsh
-        working-directory: "Source"
-      - name: "Convert AppSettings.json to Azure App Service settings"
-        id: azureAppServiceSettings
-        run: |
-          Add-Type -AssemblyName "Project.dll";
-          $appServiceName = "${{ secrets.AZURE_APPSERVICE }}";
-          $appSettingsJsonPath = "${{ steps.appSettingsJsonPath.outputs.value }}";
-          $signingCertificateThumbprint = "${{ secrets.SIGNING_CERTIFICATE_THUMBPRINT }}";
-          $validationCertificateThumbprints = "${{ secrets.VALIDATION_CERTIFICATE_THUMBPRINTS }}";
-          $azureAppServiceSettings = [Project.ConfigurationHelper]::ConvertToAzureAppServiceSettings($appServiceName, $appSettingsJsonPath, $false, $signingCertificateThumbprint, $validationCertificateThumbprints);
-          echo "::set-output name=value::$($azureAppServiceSettings)"
-        shell: pwsh
-        working-directory: "Source/Project/bin/Release/net5.0"
-      - name: "Azure sign-in"
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: "Ensure resource-group"
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az group create --location ${{ secrets.AZURE_LOCATION }} --name ${{ secrets.AZURE_RESOURCEGROUP }}
-      - name: "ARM deploy"
-        uses: azure/arm-deploy@v1
-        with:
-          parameters: appServiceName=${{ secrets.AZURE_APPSERVICE }} databaseName=${{ secrets.DATABASE_NAME }} signingCertificate=${{ secrets.SIGNING_CERTIFICATE }} signingCertificateName=${{ secrets.SIGNING_CERTIFICATE_NAME }} signingCertificatePassword=${{ secrets.SIGNING_CERTIFICATE_PASSWORD }} sithsRootCertificate=${{ secrets.SITHS_ROOTCERTIFICATE }} sqlServerAccessClientIp=${{ secrets.SQLSERVER_ACCESS_CLIENT_IP }} sqlServerAdministrator=${{ secrets.SQLSERVER_ADMINISTRATOR }} sqlServerAdministratorPassword=${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }} sqlServerName=${{ secrets.SQLSERVER_NAME }}
-          resourceGroupName: ${{ secrets.AZURE_RESOURCEGROUP }}
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          template: "Source/Template.json"
-      - name: "Set App Service settings"
-        uses: azure/appservice-settings@v1
-        with:
-          app-name: "${{ secrets.AZURE_APPSERVICE }}"
-          app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
-          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
-          mask-inputs: true
-      - name: "Set MTLS App Service settings"
-        uses: azure/appservice-settings@v1
-        with:
-          app-name: "${{ secrets.AZURE_APPSERVICE }}-mtls"
-          app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
-          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
-          mask-inputs: true
