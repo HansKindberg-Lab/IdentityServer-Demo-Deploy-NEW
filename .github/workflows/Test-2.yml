@@ -5,6 +5,9 @@ on:
   #  branches: [ master ]
   workflow_dispatch:
 
+env:
+  SQLSERVER_INSTANCE: "${{ secrets.SQLSERVER_NAME }}.database.windows.net"
+
 jobs:
   A:
     name: "A"
@@ -39,7 +42,6 @@ jobs:
           $note = "Instead of using -Credential we could also use -Password & -Username, but if doing so and the login fails the password gets exposed in the console when the error is written."
           $securePassword = ConvertTo-SecureString '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -AsPlainText -Force;
           $credential = [PSCredential]::New("${{ secrets.SQLSERVER_ADMINISTRATOR }}", $securePassword);
-          $serverInstance = "${{ secrets.SQLSERVER_NAME }}.database.windows.net";
-          Invoke-Sqlcmd -Credential $credential -Database "master" -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance $serverInstance;
-          Invoke-Sqlcmd -Credential $credential -Database "${{ secrets.DATABASE_NAME }}" -Query "${{ env.ENSURE_OWNER_SQL }}" -ServerInstance $serverInstance;
+          Invoke-Sqlcmd -Credential $credential -Database "master" -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance "${{ env.SQLSERVER_INSTANCE }}";
+          Invoke-Sqlcmd -Credential $credential -Database "${{ secrets.DATABASE_NAME }}" -Query "${{ env.ENSURE_OWNER_SQL }}" "${{ env.SQLSERVER_INSTANCE }}";
         shell: pwsh
