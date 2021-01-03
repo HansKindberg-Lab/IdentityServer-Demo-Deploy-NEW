@@ -36,7 +36,7 @@ jobs:
         run: |
           Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
-          Invoke-Sqlcmd -Database "master" -Password '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
+          Invoke-Sqlcmd -Database "master" -Password '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -Query "SELECT 'A' as 'A';" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
           #Invoke-Sqlcmd -Database "master" -Password '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
           #Invoke-Sqlcmd -Database "master" -Password '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -Query "${{ env.ENSURE_OWNER_SQL }}" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
         shell: pwsh
