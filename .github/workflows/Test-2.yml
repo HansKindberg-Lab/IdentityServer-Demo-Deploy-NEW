@@ -43,5 +43,5 @@ jobs:
           $securePassword = ConvertTo-SecureString '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -AsPlainText -Force;
           $credential = [PSCredential]::New("${{ secrets.SQLSERVER_ADMINISTRATOR }}", $securePassword);
           Invoke-Sqlcmd -Credential $credential -Database "master" -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance "${{ env.SQLSERVER_INSTANCE }}";
-          Invoke-Sqlcmd -Credential $credential -Database "${{ secrets.DATABASE_NAME }}" -Query "${{ env.ENSURE_OWNER_SQL }}" "${{ env.SQLSERVER_INSTANCE }}";
+          Invoke-Sqlcmd -Credential $credential -Database "${{ secrets.DATABASE_NAME }}" -Query "${{ env.ENSURE_OWNER_SQL }}" -ServerInstance "${{ env.SQLSERVER_INSTANCE }}";
         shell: pwsh
