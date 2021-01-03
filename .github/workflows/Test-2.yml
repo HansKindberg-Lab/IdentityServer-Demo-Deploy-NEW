@@ -1,0 +1,23 @@
+name: "A"
+
+on:
+  #push:
+  #  branches: [ master ]
+  workflow_dispatch:
+
+env:
+  Arne: |
+    a
+    b
+    c
+
+jobs:
+  A:
+    name: "A"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Test"
+        run: |
+          $a = "${{ env.Arne }}";
+          Write-Host $a;
+        shell: pwsh
