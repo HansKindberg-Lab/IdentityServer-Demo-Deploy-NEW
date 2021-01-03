@@ -41,4 +41,5 @@ jobs:
           $credential = [PSCredential]::New("${{ secrets.SQLSERVER_ADMINISTRATOR }}", $securePassword);
           $serverInstance = "${{ secrets.SQLSERVER_NAME }}.database.windows.net";
           Invoke-Sqlcmd -Credential $credential -Database "master" -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance $serverInstance;
+          Invoke-Sqlcmd -Credential $credential -Database "${{ secrets.DATABASE_NAME }}" -Query "${{ env.ENSURE_OWNER_SQL }}" -ServerInstance $serverInstance;
         shell: pwsh
