@@ -1,43 +1,5 @@
 # IdentityServer-Demo-Deploy
 
-
-
-
-
-
-
-
-Temporary begin
-
-[
-  {
-    "name": "MyName",
-    "value": "My value",
-    "type": "SQLServer",
-    "slotSetting": false
-  }
-]
-
-Temporary end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Repository for deploying an IdentityServer demo to Azure. This repository contains configuration and Azure resource-templates for the deployment.
 
 The IdentityServer instance used:
