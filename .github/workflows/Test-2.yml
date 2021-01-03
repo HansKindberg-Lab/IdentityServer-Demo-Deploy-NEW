@@ -10,7 +10,7 @@ jobs:
     name: "A"
     runs-on: "ubuntu-latest"
     steps:
-      - name: "Test"
+      - name: "Ensure user & owner for database"
         env:
           ENSURE_USER_SQL: |
             IF NOT EXISTS(SELECT [name] FROM [sys].[sql_logins] WHERE [name] = '${{ secrets.DATABASE_USER }}')
