@@ -1,4 +1,4 @@
-name: "Azure-Deploy"
+name: "A"
 
 on:
   #push:
@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  Azure-Deploy:
-    name: "Azure-Deploy"
+  A:
+    name: "A"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout code"
