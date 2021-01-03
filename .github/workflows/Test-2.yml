@@ -36,5 +36,8 @@ jobs:
         run: |
           Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
-          Invoke-Sqlcmd -Database "master" -Password '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "Arne";
+          $note = "Instead of using -Credential we could also use -Password & -Username, but if doing so and the login fails the password gets exposed in the console when the error is written."
+          $securePassword = ConvertTo-SecureString '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -AsPlainText -Force;
+          $credential = [PSCredential]::New("${{ secrets.SQLSERVER_ADMINISTRATOR }}", $securePassword);
+          Invoke-Sqlcmd -Credential $credential -Database "master" -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance "${{ secrets.SQLSERVER_NAME }}.database.windows.net";
         shell: pwsh
