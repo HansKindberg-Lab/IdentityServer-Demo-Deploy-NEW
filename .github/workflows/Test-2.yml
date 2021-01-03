@@ -10,10 +10,6 @@ jobs:
     name: "A"
     runs-on: "ubuntu-latest"
     steps:
-      - name: "Azure sign-in"
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: "Test"
         env:
           ENSURE_USER_SQL: |
@@ -38,12 +34,8 @@ jobs:
               SELECT '''${{ secrets.DATABASE_USER }}'' is already owner for database ''${{ secrets.DATABASE_NAME }}''.' AS 'Output';
             END
         run: |
-          $a = "${{ env.ENSURE_USER_SQL }}";
-          Write-Host $a;
-          $a = "${{ env.ENSURE_OWNER_SQL }}";
-          Write-Host $a;
           Install-Module -Force -Name SqlServer -Repository PSGallery;
           Import-Module SqlServer;
-          Invoke-Sqlcmd -Database "master" -Password "${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}" -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
-          Invoke-Sqlcmd -Database "master" -Password "${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}" -Query "${{ env.ENSURE_OWNER_SQL }}" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
+          Invoke-Sqlcmd -Database "master" -Password '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -Query "${{ env.ENSURE_USER_SQL }}" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
+          Invoke-Sqlcmd -Database "master" -Password '${{ secrets.SQLSERVER_ADMINISTRATOR_PASSWORD }}' -Query "${{ env.ENSURE_OWNER_SQL }}" -ServerInstance "hanskindberg-identityserver-demo-sqlserver.database.windows.net" -Username "${{ secrets.SQLSERVER_ADMINISTRATOR }}";
         shell: pwsh
