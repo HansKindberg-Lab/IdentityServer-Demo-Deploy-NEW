@@ -6,6 +6,15 @@ on:
   workflow_dispatch:
 
 env:
+  CONNECTION_STRINGS: |
+    [
+      {
+        "name": "IdentityServer",
+        "slotSetting": false,
+        "type": "SQLServer",
+        "value": "Database=${{ secrets.DATABASE_NAME }};Password=${{ secrets.DATABASE_USER_PASSWORD }};Server=${{ env.SQLSERVER_INSTANCE }};User ID=${{ secrets.DATABASE_USER }}"
+      }
+    ]
   SQLSERVER_INSTANCE: "${{ secrets.SQLSERVER_NAME }}.database.windows.net"
 
 jobs:
@@ -94,12 +103,12 @@ jobs:
         with:
           app-name: "${{ secrets.AZURE_APPSERVICE }}"
           app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
-          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
+          connection-strings-json: "${{ env.CONNECTION_STRINGS }}"
           mask-inputs: true
       - name: "Set MTLS App Service settings"
         uses: azure/appservice-settings@v1
         with:
           app-name: "${{ secrets.AZURE_APPSERVICE }}-mtls"
           app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
-          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
+          connection-strings-json: "${{ env.CONNECTION_STRINGS }}"
           mask-inputs: true
