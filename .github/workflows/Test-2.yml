@@ -12,7 +12,7 @@ env:
         "name": "IdentityServer",
         "slotSetting": false,
         "type": "SQLServer",
-        "value": "Database=${{ secrets.DATABASE_NAME }};Password=${{ secrets.DATABASE_USER_PASSWORD }};Server=${{ secrets.SQLSERVER_NAME }}.database.windows.net;User ID=${{ secrets.DATABASE_USER }}"
+        "value": "Database=${{ secrets.DATABASE_NAME }};Password=${{ secrets.DATABASE_USER_PASSWORD }};Server=${{ env.SQLSERVER_INSTANCE }};User ID=${{ secrets.DATABASE_USER }}"
       }
     ]
   SQLSERVER_INSTANCE: "${{ secrets.SQLSERVER_NAME }}.database.windows.net"
