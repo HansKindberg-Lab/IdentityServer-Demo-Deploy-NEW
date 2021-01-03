@@ -10,6 +10,10 @@ jobs:
     name: "A"
     runs-on: "ubuntu-latest"
     steps:
+      - name: "Azure sign-in"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: "Test"
         env:
           ENSURE_USER_SQL: |
