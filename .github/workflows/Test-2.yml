@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  CONNECTION_STRINGS: '[{"name": "IdentityServer","slotSetting": false,"type": "SQLServer","value": "Database=${{ secrets.DATABASE_NAME }};Password=${{ secrets.DATABASE_USER_PASSWORD }};Server=${{ secrets.SQLSERVER_NAME }}.database.windows.net;User ID=${{ secrets.DATABASE_USER }}"}]'
+  ARNE: '[{"name": "IdentityServer","slotSetting": false,"type": "SQLServer","value": "Database=${{ secrets.DATABASE_NAME }};Password=${{ secrets.DATABASE_USER_PASSWORD }};Server=${{ secrets.SQLSERVER_NAME }}.database.windows.net;User ID=${{ secrets.DATABASE_USER }}"}]'
   SQLSERVER_INSTANCE: "${{ secrets.SQLSERVER_NAME }}.database.windows.net"
 
 jobs:
