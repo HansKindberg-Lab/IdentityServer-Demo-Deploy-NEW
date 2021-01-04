@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: "Test"
         run: |
-          $test = "${{ env.TEST }}";
+          $test = '${{ env.TEST }}';
           Write-Host $test.GetType();
           Write-Host $test;
         shell: pwsh
