@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  TEST: "[{\"a\": \"a\", \"b\": false, \"c\": \"c\"}]"
+  TEST: "the double quote \" needs to be escaped"
 
 jobs:
   Test:
