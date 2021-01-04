@@ -7,6 +7,24 @@ The IdentityServer instance used:
 - https://hub.docker.com/r/hanskindberg/identity-server
 - https://github.com/HansKindberg/Identity-Server
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 1 Prerequisites
 
 ### 1.1 Azure account
@@ -95,6 +113,31 @@ Create the following secrets, name and value:
 - **SQLSERVER_NAME**: {the name of the sql-server}
 - **VALIDATION_CERTIFICATE_THUMBPRINTS**: {empty, string or comma-separated string of values}
   - All validation-certificate-thumbprints. That is all previous signing-certificate-thumbprints, If you want previous encryptions to still work after renewing the signing-certificate.
+
+### 1.6 Authentication providers
+
+#### 1.6.1 Google
+
+- [Google registration](/Source/AppSettings.json#L86)
+
+
+- [Google external login setup in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins/)
+- https://console.developers.google.com/
+- [Example](/Source/Application/Data/Authentication.json#L92)
+
+#### 1.6.2 Microsoft
+
+- [Microsoft registration](/Source/AppSettings.json#L120)
+
+
+- [Microsoft Account external login setup with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins/)
+- https://portal.azure.com/?l=en.en-001#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps
+- Examples
+  - [Azure AD (single tenant)](/Source/Application/Data/Authentication.json#L62)
+  - [Microsoft (multitenant and personal accounts)](/Source/Application/Data/Authentication.json#L116)
+
+
+
 
 ## 2 Notes
 
