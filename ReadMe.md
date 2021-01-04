@@ -69,7 +69,7 @@ You need an Azure service principal to use as deployment credentials from the Gi
 
 ### 1.5 GitHub secrets
 
-**IMPORTANT!** In the workflow we create a SQL Server login by using the powershell command **Invoke-Sqlcmd** and passing a query built up as an environment-variable. In that environment-variable we pass in ${{ secrets.DATABASE_USER_PASSWORD }}. Some special characters in the password may break the command. If you can not login to the database with the secret password after deployment you can try a another password.
+**IMPORTANT!** In the workflow we create a SQL Server login by using the powershell command **Invoke-Sqlcmd** and passing a query built up as an environment-variable. In that environment-variable we pass in ${{ secrets.DATABASE_USER_PASSWORD }}. Some special characters in the password may break the command. If you can not login to the database with the secret password after deployment you can try a another password. Make sure it does NOT contain **;**, because that will break the connection-string.
 
 To create a secret, go to **Settings** > **Secrets** > **New repository secret**.
 
