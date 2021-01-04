@@ -1,0 +1,30 @@
+name: "Test"
+
+on:
+  #push:
+  #  branches: [ master ]
+  workflow_dispatch:
+
+env:
+  CONNECTION_STRING: >
+    [
+      {
+        "name": "IdentityServer",
+        "slotSetting": false,
+        "type": "SQLServer",
+        "value": "Database=IdentityServer-Demo;Password=#XP7`l8!Awo6tYmywnG~:G5oVsC1|@,3;Server=hanskindberg-identityserver-demo-sqlserver.database.windows.net;User ID=IdentityServer-Demo"
+      }
+    ]
+  SQLSERVER_INSTANCE: "${{ secrets.SQLSERVER_NAME }}.database.windows.net"
+
+jobs:
+  Test:
+    name: "Test"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Test"
+        run: |
+          $test = ${{ env.CONNECTION_STRINGS }};
+          Write-Host $test.GetType();
+          Write-Host $test;
+        shell: pwsh
