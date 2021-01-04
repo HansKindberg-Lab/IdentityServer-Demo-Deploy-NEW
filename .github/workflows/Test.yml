@@ -7,7 +7,7 @@ on:
 
 env:
   TEST: >
-    export EXTRA_CONFIG='{"client": {"subscriptions": ["DIND-Worker"], "cluster": "internal"}}'
+    [{"a": "a", "b": false, "c": "c"}]
 
 jobs:
   Test:
