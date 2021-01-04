@@ -6,8 +6,6 @@ on:
   workflow_dispatch:
 
 env:
-  CONNECTION_STRINGS: >
-    [{"name": "IdentityServer", "slotSetting": false, "type": "SQLServer", "value": "Database=${{ secrets.DATABASE_NAME }};Password=${{ secrets.DATABASE_USER_PASSWORD }};Server=${{ secrets.SQLSERVER_NAME }}.database.windows.net;User ID=${{ secrets.DATABASE_USER }}"}]
   SQLSERVER_INSTANCE: "${{ secrets.SQLSERVER_NAME }}.database.windows.net"
 
 jobs:
@@ -65,11 +63,12 @@ jobs:
             IF NOT EXISTS(SELECT [name] FROM [sys].[sql_logins] WHERE [name] = '${{ secrets.DATABASE_USER }}')
             BEGIN
               SELECT 'Creating login ''${{ secrets.DATABASE_USER }}''...' AS 'Output';
-              EXECUTE ('CREATE LOGIN [${{ secrets.DATABASE_USER }}] WITH PASSWORD = ''${{ secrets.DATABASE_USER_PASSWORD }}'';');
+              EXECUTE ('CREATE LOGIN [${{ secrets.DATABASE_USER }}] WITH PASSWORD = ''P@ssword12'';');
             END
             ELSE
             BEGIN
-              SELECT 'The login ''${{ secrets.DATABASE_USER }}'' already exists.' AS 'Output';
+              SELECT 'Setting password for login ''${{ secrets.DATABASE_USER }}''...' AS 'Output';
+              EXECUTE ('ALTER LOGIN [${{ secrets.DATABASE_USER }}] WITH PASSWORD = ''P@ssword12'';');
             END
           ENSURE_OWNER_SQL: |
             IF NOT EXISTS (SELECT [name] FROM [sys].[database_principals] WHERE [name] = '${{ secrets.DATABASE_USER }}' AND [type] = 'S')
@@ -96,12 +95,12 @@ jobs:
         with:
           app-name: "${{ secrets.AZURE_APPSERVICE }}"
           app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
-          connection-strings-json: '${{ env.CONNECTION_STRINGS }}'
+          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
           mask-inputs: true
       - name: "Set MTLS App Service settings"
         uses: azure/appservice-settings@v1
         with:
           app-name: "${{ secrets.AZURE_APPSERVICE }}-mtls"
           app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
-          connection-strings-json: '${{ env.CONNECTION_STRINGS }}'
+          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
           mask-inputs: true
