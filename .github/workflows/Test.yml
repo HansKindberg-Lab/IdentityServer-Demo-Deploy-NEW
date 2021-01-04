@@ -7,7 +7,7 @@ on:
 
 env:
   TEST: >
-    [{"a": "a", "b": "b", "c": false}]
+    [{"name": "IdentityServer", "slotSetting": false, "type": "SQLServer"}]
 
 jobs:
   Test:
