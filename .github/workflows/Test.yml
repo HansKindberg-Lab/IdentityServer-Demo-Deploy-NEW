@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  TEST: "[{\u0022a\u0022}]"
+  TEST: '[{\u0022a\u0022: "a"}]'
 
 jobs:
   Test:
