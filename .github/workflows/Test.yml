@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  TEST: >
-    "[{\"a\": \"a\", \"b\": false, \"c\": \"c\"}]"
+  TEST: "[{\"a\": \"a\", \"b\": false, \"c\": \"c\"}]"
 
 jobs:
   Test:
