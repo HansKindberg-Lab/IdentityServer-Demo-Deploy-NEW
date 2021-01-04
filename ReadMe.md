@@ -119,30 +119,20 @@ Create the following secrets, name and value:
 You need to allow your-identityserver-demo to use the registered authentication-providers.
 
 https://your-identityserver-demo.azurewebsites.net
+
 https://your-identityserver-demo-mtls.azurewebsites.net
 
 #### 1.6.1 Google
 
 - [Google registration](/Source/AppSettings.json#L86)
-
-
 - [Google external login setup in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins/)
 - https://console.developers.google.com/
-- [Example](/Source/Application/Data/Authentication.json#L92)
 
 #### 1.6.2 Microsoft
 
 - [Microsoft registration](/Source/AppSettings.json#L120)
-
-
 - [Microsoft Account external login setup with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins/)
 - https://portal.azure.com/?l=en.en-001#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps
-- Examples
-  - [Azure AD (single tenant)](/Source/Application/Data/Authentication.json#L62)
-  - [Microsoft (multitenant and personal accounts)](/Source/Application/Data/Authentication.json#L116)
-
-
-
 
 ## 2 Notes
 
