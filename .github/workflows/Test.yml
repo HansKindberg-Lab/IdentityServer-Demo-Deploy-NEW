@@ -7,7 +7,7 @@ on:
 
 env:
   TEST: >
-    [{"a": "a", "b": false, "c": "c"}]
+    "[{\"a\": \"a\", \"b\": false, \"c\": \"c\"}]"
 
 jobs:
   Test:
