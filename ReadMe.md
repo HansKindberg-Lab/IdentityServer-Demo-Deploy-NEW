@@ -118,15 +118,21 @@ Create the following secrets, name and value:
 
 You need to allow your-identityserver-demo to use the registered authentication-providers.
 
-https://your-identityserver-demo.azurewebsites.net
-
-https://your-identityserver-demo-mtls.azurewebsites.net
+- https://your-identityserver-demo.azurewebsites.net
+- https://your-identityserver-demo-mtls.azurewebsites.net
 
 #### 1.6.1 Google
 
 - [Google registration](/Source/AppSettings.json#L86)
 - [Google external login setup in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins/)
 - https://console.developers.google.com/
+
+Add:
+
+- https://hanskindberg-identityserver-demo.azurewebsites.net/signin-google
+- https://hanskindberg-identityserver-demo-mtls.azurewebsites.net/signin-google
+
+under **Authorized redirect URIs**
 
 #### 1.6.2 Microsoft
 
