@@ -152,3 +152,5 @@ as **Front-channel logout URL**
 - https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate-in-code
 - https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate-in-code#load-certificate-in-linuxwindows-containers
 - https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-manage-powershell-core/
+- https://docs.microsoft.com/en-us/azure/app-service/configure-language-dotnetcore?pivots=platform-linux
+- https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-5.0#forward-the-scheme-for-linux-and-non-iis-reverse-proxies
