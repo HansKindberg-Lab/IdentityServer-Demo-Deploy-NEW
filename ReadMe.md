@@ -7,24 +7,6 @@ The IdentityServer instance used:
 - https://hub.docker.com/r/hanskindberg/identity-server
 - https://github.com/HansKindberg/Identity-Server
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 1 Prerequisites
 
 ### 1.1 Azure account
@@ -129,8 +111,8 @@ You need to allow your-identityserver-demo to use the registered authentication-
 
 Add:
 
-- https://hanskindberg-identityserver-demo.azurewebsites.net/signin-google
-- https://hanskindberg-identityserver-demo-mtls.azurewebsites.net/signin-google
+- https://your-identityserver-demo.azurewebsites.net/signin-google
+- https://your-identityserver-demo-mtls.azurewebsites.net/signin-google
 
 under **Authorized redirect URIs**
 
@@ -139,6 +121,19 @@ under **Authorized redirect URIs**
 - [Microsoft registration](/Source/AppSettings.json#L120)
 - [Microsoft Account external login setup with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins/)
 - https://portal.azure.com/?l=en.en-001#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps
+
+Add:
+
+- https://your-identityserver-demo.azurewebsites.net/signin-microsoft
+- https://your-identityserver-demo-mtls.azurewebsites.net/signin-microsoft
+
+under **Redirect URIs**
+
+Add:
+
+- https://your-identityserver-demo.azurewebsites.net/signout
+
+as **Front-channel logout URL**
 
 ## 2 Notes
 
