@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  CONNECTION_STRING: >
+  CONNECTION_STRINGS: >
     '['
     '  {'
     '    "name": "IdentityServer",'
@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: "Test"
         run: |
-          $test = "${{ env.CONNECTION_STRINGS }}";
+          $test = ${{ env.CONNECTION_STRINGS }};
           Write-Host $test.GetType();
           Write-Host $test;
         shell: pwsh
