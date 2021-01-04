@@ -135,7 +135,16 @@ Add:
 
 as **Front-channel logout URL**
 
-## 2 Notes
+## 2 Logging
+
+- [Enable application logging (Linux/Container)](https://docs.microsoft.com/en-us/azure/app-service/troubleshoot-diagnostic-logs#enable-application-logging-linuxcontainer)
+- [Access log files](https://docs.microsoft.com/en-us/azure/app-service/troubleshoot-diagnostic-logs#access-log-files)
+	- https://your-identityserver-demo.scm.azurewebsites.net
+      - https://your-identityserver-demo.scm.azurewebsites.net/api/logs/docker/zip
+	- https://your-identityserver-demo-mtls.scm.azurewebsites.net
+      - https://your-identityserver-demo-mtls.scm.azurewebsites.net/api/logs/docker/zip
+
+## 3 Notes
 
 - https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions
 - https://azuredevopslabs.com/labs/devopsserver/azureserviceprincipal/#exercise-1-creating-an-azure-service-principal-for-use-as-an-azure-resource-manager-service-connection
