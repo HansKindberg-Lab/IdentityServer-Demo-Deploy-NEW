@@ -7,14 +7,14 @@ on:
 
 env:
   CONNECTION_STRING: >
-    [
-      {
-        "name": "IdentityServer",
-        "slotSetting": false,
-        "type": "SQLServer",
-        "value": "Database=IdentityServer-Demo;Password=#XP7`l8!Awo6tYmywnG~:G5oVsC1|@,3;Server=hanskindberg-identityserver-demo-sqlserver.database.windows.net;User ID=IdentityServer-Demo"
-      }
-    ]
+    '['
+    '  {'
+    '    "name": "IdentityServer",'
+    '    "slotSetting": false,'
+    '    "type": "SQLServer",'
+    '    "value": "Database=IdentityServer-Demo;Password=#XP7`l8!Awo6tYmywnG~:G5oVsC1|@,3;Server=hanskindberg-identityserver-demo-sqlserver.database.windows.net;User ID=IdentityServer-Demo"'
+    '  }'
+    ']'
   SQLSERVER_INSTANCE: "${{ secrets.SQLSERVER_NAME }}.database.windows.net"
 
 jobs:
