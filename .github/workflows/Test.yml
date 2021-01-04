@@ -7,10 +7,7 @@ on:
 
 env:
   TEST: >
-    "\"a\": \"a\""
-    "\"b\": \"b\""
-    "\"c\": \"c\""
-    "\"d\": \"d\""
+    export EXTRA_CONFIG='{"client": {"subscriptions": ["DIND-Worker"], "cluster": "internal"}}'
 
 jobs:
   Test:
