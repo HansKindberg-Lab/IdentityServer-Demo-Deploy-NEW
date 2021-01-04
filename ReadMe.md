@@ -116,6 +116,11 @@ Create the following secrets, name and value:
 
 ### 1.6 Authentication providers
 
+You need to allow your-identityserver-demo to use the registered authentication-providers.
+
+https://your-identityserver-demo.azurewebsites.net
+https://your-identityserver-demo-mtls.azurewebsites.net
+
 #### 1.6.1 Google
 
 - [Google registration](/Source/AppSettings.json#L86)
