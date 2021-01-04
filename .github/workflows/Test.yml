@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  TEST: "the double quote \" needs to be escaped"
+  TEST: 'the double quote " needs to be escaped'
 
 jobs:
   Test:
