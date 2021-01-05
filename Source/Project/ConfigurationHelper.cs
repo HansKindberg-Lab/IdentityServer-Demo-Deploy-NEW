@@ -121,11 +121,11 @@ namespace Project
 			if(settings == null)
 				throw new ArgumentNullException(nameof(settings));
 
-			settings.Add(new AzureAppServiceSetting
-			{
-				Name = $"{_identityServerSettingPrefix}{_separator}IssuerUri",
-				Value = $"https://{appServiceName}.azurewebsites.net"
-			});
+			//settings.Add(new AzureAppServiceSetting
+			//{
+			//	Name = $"{_identityServerSettingPrefix}{_separator}IssuerUri",
+			//	Value = $"https://{appServiceName}.azurewebsites.net"
+			//});
 
 			settings.Add(new AzureAppServiceSetting
 			{
@@ -133,11 +133,11 @@ namespace Project
 				Value = $"{appServiceName}-mtls.azurewebsites.net"
 			});
 
-			settings.Add(new AzureAppServiceSetting
-			{
-				Name = $"{_identityServerSettingPrefix}{_separator}MutualTls{_separator}Enabled",
-				Value = "true"
-			});
+			//settings.Add(new AzureAppServiceSetting
+			//{
+			//	Name = $"{_identityServerSettingPrefix}{_separator}MutualTls{_separator}Enabled",
+			//	Value = "true"
+			//});
 		}
 
 		private static void PopulateSettings(IConfiguration configuration, IList<AzureAppServiceSetting> settings)
