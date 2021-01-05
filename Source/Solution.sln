@@ -21,6 +21,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{77547378-5C46-45C2-8DB8-B612F78732C1}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\Azure-Deploy.yml = ..\.github\workflows\Azure-Deploy.yml
+		..\.github\workflows\Settings-Deploy.yml = ..\.github\workflows\Settings-Deploy.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D6D8E846-CCEC-4662-9462-EE8B7CA71CBB}"
