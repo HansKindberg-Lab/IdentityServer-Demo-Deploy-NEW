@@ -50,7 +50,7 @@ namespace Project
 				{
 					new AzureAppServiceSetting
 					{
-						Name = "AppSettings.json",
+						Name = "AppSettings_json",
 						Value = File.ReadAllText(appSettingsJsonPath).Replace(Environment.NewLine, string.Empty, StringComparison.Ordinal).Replace("\t", string.Empty, StringComparison.Ordinal)
 					}
 				};
