@@ -15,10 +15,11 @@ namespace Project
 			// ReSharper disable PossibleNullReferenceException
 			var projectDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent;
 			var appSettingsJsonFilePath = Path.Combine(projectDirectory.Parent.FullName, "AppSettings.json");
+			var environmentVariablesJsonFilePath = Path.Combine(projectDirectory.Parent.FullName, "EnvironmentVariables.json");
 			// ReSharper restore PossibleNullReferenceException
 
-			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings("my-identityserver-demo", appSettingsJsonFilePath, true, "Signing-certificate-thumbprint", "Validation-certificate-thumbprint-1,Validation-certificate-thumbprint-2            , Validation-certificate-thumbprint-3     ,  , ,");
-			Assert.AreEqual(2192, azureAppServiceSettings.Length);
+			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings("my-identityserver-demo", appSettingsJsonFilePath, environmentVariablesJsonFilePath, true, "Signing-certificate-thumbprint", "Validation-certificate-thumbprint-1,Validation-certificate-thumbprint-2            , Validation-certificate-thumbprint-3     ,  , ,");
+			Assert.AreEqual(2282, azureAppServiceSettings.Length);
 		}
 
 		[TestMethod]
@@ -27,10 +28,11 @@ namespace Project
 			// ReSharper disable PossibleNullReferenceException
 			var projectDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent;
 			var appSettingsJsonFilePath = Path.Combine(projectDirectory.Parent.FullName, "AppSettings.json");
+			var environmentVariablesJsonFilePath = Path.Combine(projectDirectory.Parent.FullName, "EnvironmentVariables.json");
 			// ReSharper restore PossibleNullReferenceException
 
-			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings("my-identityserver-demo", appSettingsJsonFilePath, true);
-			Assert.AreEqual(32581, azureAppServiceSettings.Length);
+			var azureAppServiceSettings = ConfigurationHelper.ConvertToAzureAppServiceSettings("my-identityserver-demo", appSettingsJsonFilePath, environmentVariablesJsonFilePath, true);
+			Assert.AreEqual(12984, azureAppServiceSettings.Length);
 		}
 
 		#endregion

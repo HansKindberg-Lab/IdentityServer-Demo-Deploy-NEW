@@ -1,0 +1,4 @@
+{
+	"DOCKER_ENABLE_CI": true,
+	"DOCKER_REGISTRY_SERVER_URL": "https://index.docker.io"
+}

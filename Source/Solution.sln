@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{D632976E-A4C1-44D5-8E1F-3435D3101E2A}"
 	ProjectSection(SolutionItems) = preProject
 		AppSettings.json = AppSettings.json
+		EnvironmentVariables.json = EnvironmentVariables.json
 		Template.json = Template.json
 	EndProjectSection
 EndProject

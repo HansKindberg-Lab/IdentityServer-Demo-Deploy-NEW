@@ -22,7 +22,7 @@ namespace Project
 
 		#region Methods
 
-		public static string ConvertToAzureAppServiceSettings(string appServiceName, string appSettingsJsonPath, bool indent = false, string signingCertificateThumbprint = null, string validationCertificateThumbprints = null)
+		public static string ConvertToAzureAppServiceSettings(string appServiceName, string appSettingsJsonPath, string environmentVariablesJsonPath, bool indent = false, string signingCertificateThumbprint = null, string validationCertificateThumbprints = null)
 		{
 			if(appServiceName == null)
 				throw new ArgumentNullException(nameof(appServiceName));
@@ -33,13 +33,27 @@ namespace Project
 			if(!File.Exists(appSettingsJsonPath))
 				throw new FileNotFoundException($"The app-settings-json-file \"{appSettingsJsonPath}\" does not exist.");
 
+			if(environmentVariablesJsonPath == null)
+				throw new ArgumentNullException(nameof(environmentVariablesJsonPath));
+
+			if(!File.Exists(environmentVariablesJsonPath))
+				throw new FileNotFoundException($"The environment-variables-json-file \"{environmentVariablesJsonPath}\" does not exist.");
+
 			// ReSharper disable ConvertToUsingDeclaration
-			using(var stream = File.OpenRead(appSettingsJsonPath))
+			using(var stream = File.OpenRead(environmentVariablesJsonPath))
 			{
 				var configurationBuilder = new ConfigurationBuilder();
 				configurationBuilder.AddJsonStream(stream);
 				var configuration = configurationBuilder.Build();
-				var settings = new List<AzureAppServiceSetting>();
+
+				var settings = new List<AzureAppServiceSetting>
+				{
+					new AzureAppServiceSetting
+					{
+						Name = "AppSettings.json",
+						Value = File.ReadAllText(appSettingsJsonPath).Replace(Environment.NewLine, string.Empty, StringComparison.Ordinal).Replace("\t", string.Empty, StringComparison.Ordinal)
+					}
+				};
 
 				PopulateIdentityServerSettings(appServiceName, settings);
 
@@ -121,11 +135,11 @@ namespace Project
 			if(settings == null)
 				throw new ArgumentNullException(nameof(settings));
 
-			//settings.Add(new AzureAppServiceSetting
-			//{
-			//	Name = $"{_identityServerSettingPrefix}{_separator}IssuerUri",
-			//	Value = $"https://{appServiceName}.azurewebsites.net"
-			//});
+			settings.Add(new AzureAppServiceSetting
+			{
+				Name = $"{_identityServerSettingPrefix}{_separator}IssuerUri",
+				Value = $"https://{appServiceName}.azurewebsites.net"
+			});
 
 			settings.Add(new AzureAppServiceSetting
 			{
@@ -133,11 +147,11 @@ namespace Project
 				Value = $"{appServiceName}-mtls.azurewebsites.net"
 			});
 
-			//settings.Add(new AzureAppServiceSetting
-			//{
-			//	Name = $"{_identityServerSettingPrefix}{_separator}MutualTls{_separator}Enabled",
-			//	Value = "true"
-			//});
+			settings.Add(new AzureAppServiceSetting
+			{
+				Name = $"{_identityServerSettingPrefix}{_separator}MutualTls{_separator}Enabled",
+				Value = "true"
+			});
 		}
 
 		private static void PopulateSettings(IConfiguration configuration, IList<AzureAppServiceSetting> settings)
