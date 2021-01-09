@@ -43,6 +43,7 @@
 		"apiVersion": "2018-02-01",
 		"appServiceKind": "app,linux,container",
 		"appServicePlanName": "App-Service-Plan",
+		"interactiveMtlsAppServiceName": "[concat(parameters('appServiceName'), '-interactive-mtls')]",
 		"mtlsAppServiceName": "[concat(parameters('appServiceName'), '-mtls')]",
 		"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
 		"siteConfig": {
@@ -130,6 +131,23 @@
 			"kind": "[variables('appServiceKind')]",
 			"location": "[resourceGroup().location]",
 			"properties": {
+				"httpsOnly": true,
+				"serverFarmId": "[variables('serverFarmId')]",
+				"siteConfig": "[variables('siteConfig')]"
+			},
+			"type": "Microsoft.Web/sites"
+		},
+		{
+			"name": "[variables('interactiveMtlsAppServiceName')]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[variables('serverFarmId')]"
+			],
+			"kind": "[variables('appServiceKind')]",
+			"location": "[resourceGroup().location]",
+			"properties": {
+				"clientCertEnabled": true,
+				"clientCertMode": "Required",
 				"httpsOnly": true,
 				"serverFarmId": "[variables('serverFarmId')]",
 				"siteConfig": "[variables('siteConfig')]"

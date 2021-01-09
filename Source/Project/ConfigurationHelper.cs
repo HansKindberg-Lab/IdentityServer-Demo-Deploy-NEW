@@ -13,6 +13,7 @@ namespace Project
 	{
 		#region Fields
 
+		private const string _azureWebSitesDomain = "azurewebsites.net";
 		private const string _identityServerSettingPrefix = "IdentityServer";
 		private const string _privateCertificatePathFormat = "/var/ssl/private/{0}.p12";
 		private const string _publicCertificatePathFormat = "/var/ssl/certs/{0}.der";
@@ -137,14 +138,20 @@ namespace Project
 
 			settings.Add(new AzureAppServiceSetting
 			{
+				Name = $"{_identityServerSettingPrefix}{_separator}InteractiveMutualTlsDomain",
+				Value = $"{appServiceName}-interactive-mtls.{_azureWebSitesDomain}"
+			});
+
+			settings.Add(new AzureAppServiceSetting
+			{
 				Name = $"{_identityServerSettingPrefix}{_separator}IssuerUri",
-				Value = $"https://{appServiceName}.azurewebsites.net"
+				Value = $"https://{appServiceName}.{_azureWebSitesDomain}"
 			});
 
 			settings.Add(new AzureAppServiceSetting
 			{
 				Name = $"{_identityServerSettingPrefix}{_separator}MutualTls{_separator}DomainName",
-				Value = $"{appServiceName}-mtls.azurewebsites.net"
+				Value = $"{appServiceName}-mtls.{_azureWebSitesDomain}"
 			});
 
 			settings.Add(new AzureAppServiceSetting

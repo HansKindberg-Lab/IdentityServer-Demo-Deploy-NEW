@@ -91,6 +91,13 @@ jobs:
           app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
           connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
           mask-inputs: true
+      - name: "Set Interactive MTLS App Service settings"
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: "${{ secrets.AZURE_APPSERVICE }}-interactive-mtls"
+          app-settings-json: "${{ steps.azureAppServiceSettings.outputs.value }}"
+          connection-strings-json: "${{ secrets.CONNECTION_STRINGS }}"
+          mask-inputs: true
       - name: "Set MTLS App Service settings"
         uses: azure/appservice-settings@v1
         with:
