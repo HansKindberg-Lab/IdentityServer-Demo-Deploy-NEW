@@ -16,14 +16,13 @@ namespace Project
 		private const string _azureWebSitesDomain = "azurewebsites.net";
 		private const string _identityServerSettingPrefix = "IdentityServer";
 		private const string _privateCertificatePathFormat = "/var/ssl/private/{0}.p12";
-		private const string _publicCertificatePathFormat = "/var/ssl/certs/{0}.der";
 		private const string _separator = "__";
 
 		#endregion
 
 		#region Methods
 
-		public static string ConvertToAzureAppServiceSettings(string appServiceName, string appSettingsJsonPath, string environmentVariablesJsonPath, bool indent = false, string signingCertificateThumbprint = null, string validationCertificateThumbprints = null)
+		public static string ConvertToAzureAppServiceSettings(string appServiceName, string appSettingsJsonPath, string environmentVariablesJsonPath, bool indent = false, string signingCertificateThumbprint = null, string sithsIntermediateCertificateThumbprint = null, string sithsRootCertificateThumbprint = null, string validationCertificateThumbprints = null)
 		{
 			if(appServiceName == null)
 				throw new ArgumentNullException(nameof(appServiceName));
@@ -52,7 +51,11 @@ namespace Project
 					new AzureAppServiceSetting
 					{
 						Name = "AppSettings_json",
-						Value = File.ReadAllText(appSettingsJsonPath).Replace(Environment.NewLine, string.Empty, StringComparison.Ordinal).Replace("\t", string.Empty, StringComparison.Ordinal)
+						Value = File.ReadAllText(appSettingsJsonPath)
+							.Replace("{SITHS_INTERMEDIATECERTIFICATE_THUMBPRINT}", sithsIntermediateCertificateThumbprint, StringComparison.Ordinal)
+							.Replace("{SITHS_ROOTCERTIFICATE_THUMBPRINT}", sithsRootCertificateThumbprint, StringComparison.Ordinal)
+							.Replace(Environment.NewLine, string.Empty, StringComparison.Ordinal)
+							.Replace("\t", string.Empty, StringComparison.Ordinal)
 					}
 				};
 

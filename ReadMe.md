@@ -61,11 +61,21 @@ You need an Azure service principal to use as deployment credentials from the Gi
   - **Name**
   - **Thumbprint**
 
-### 1.4 SITHS root-certificate
+### 1.4 SITHS certificates
 
-1. Export **SITHS e-id Root CA v2** from your certificate-store as base 64-encoded X.509 and save it as a *.crt file.
+#### 1.4.1 Intermediate certificate
+
+1. Export **SITHS e-id Person HSA-id 3 CA v1** from your certificate-store, *StoreName.CertificateAuthority*, as base 64-encoded X.509 and save it as a *.crt file.
+2. Remove *-----BEGIN CERTIFICATE-----*, *-----END CERTIFICATE-----* and all new-lines.
+3. Use the value for the **SITHS_INTERMEDIATECERTIFICATE** secret, see below.
+4. Note the thumbprint and use it for the **SITHS_INTERMEDIATECERTIFICATE_THUMBPRINT** secret, see below.
+
+#### 1.4.2 Root-certificate
+
+1. Export **SITHS e-id Root CA v2** from your certificate-store, *StoreName.Root*, as base 64-encoded X.509 and save it as a *.crt file.
 2. Remove *-----BEGIN CERTIFICATE-----*, *-----END CERTIFICATE-----* and all new-lines.
 3. Use the value for the **SITHS_ROOTCERTIFICATE** secret, see below.
+4. Note the thumbprint and use it for the **SITHS_ROOTCERTIFICATE_THUMBPRINT** secret, see below.
 
 ### 1.5 GitHub secrets
 
@@ -88,7 +98,10 @@ Create the following secrets, name and value:
 - **SIGNING_CERTIFICATE_NAME**: {the certificate-name from above}
 - **SIGNING_CERTIFICATE_PASSWORD**: {the certificate-password from above}
 - **SIGNING_CERTIFICATE_THUMBPRINT**: {the certificate-password from above}
+- **SITHS_INTERMEDIATECERTIFICATE**: {the exported certificate-content from above}
+- **SITHS_INTERMEDIATECERTIFICATE_THUMBPRINT**: {the thumbprint from above}
 - **SITHS_ROOTCERTIFICATE**: {the exported certificate-content from above}
+- **SITHS_ROOTCERTIFICATE_THUMBPRINT**: {the thumbprint from above}
 - **SQLSERVER_ACCESS_CLIENT_IP**: {an ip-number with access to sql-server}
 - **SQLSERVER_ADMINISTRATOR**: {user-name for the sql-server administrator}
 - **SQLSERVER_ADMINISTRATOR_PASSWORD**: {password for the sql-server administrator}
