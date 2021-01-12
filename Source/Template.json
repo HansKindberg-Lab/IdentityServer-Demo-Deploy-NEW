@@ -194,6 +194,30 @@
 			"type": "Microsoft.Web/certificates"
 		},
 		{
+			"name": "[concat(variables('interactiveMtlsAppServiceName'), '/', variables('sithsIntermediateCertificateName'))]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', variables('interactiveMtlsAppServiceName'))]"
+			],
+			"properties": {
+				"blob": "[parameters('sithsIntermediateCertificate')]",
+				"publicCertificateLocation": "CurrentUserMy"
+			},
+			"type": "Microsoft.Web/sites/publicCertificates"
+		},
+		{
+			"name": "[concat(variables('interactiveMtlsAppServiceName'), '/', variables('sithsRootCertificateName'))]",
+			"apiVersion": "[variables('apiVersion')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', variables('interactiveMtlsAppServiceName'))]"
+			],
+			"properties": {
+				"blob": "[parameters('sithsRootCertificate')]",
+				"publicCertificateLocation": "CurrentUserMy"
+			},
+			"type": "Microsoft.Web/sites/publicCertificates"
+		},
+		{
 			"name": "[concat(variables('mtlsAppServiceName'), '/', variables('sithsIntermediateCertificateName'))]",
 			"apiVersion": "[variables('apiVersion')]",
 			"dependsOn": [
