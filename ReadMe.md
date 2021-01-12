@@ -68,14 +68,14 @@ You need an Azure service principal to use as deployment credentials from the Gi
 1. Export **SITHS e-id Person HSA-id 3 CA v1** from your certificate-store, *StoreName.CertificateAuthority*, as base 64-encoded X.509 and save it as a *.crt file.
 2. Remove *-----BEGIN CERTIFICATE-----*, *-----END CERTIFICATE-----* and all new-lines.
 3. Use the value for the **SITHS_INTERMEDIATECERTIFICATE** secret, see below.
-4. Note the thumbprint and use it for the **SITHS_INTERMEDIATECERTIFICATE_THUMBPRINT** secret, see below.
+4. Note the thumbprint, as **upper-case**, and use it for the **SITHS_INTERMEDIATECERTIFICATE_THUMBPRINT** secret, see below.
 
 #### 1.4.2 Root-certificate
 
 1. Export **SITHS e-id Root CA v2** from your certificate-store, *StoreName.Root*, as base 64-encoded X.509 and save it as a *.crt file.
 2. Remove *-----BEGIN CERTIFICATE-----*, *-----END CERTIFICATE-----* and all new-lines.
 3. Use the value for the **SITHS_ROOTCERTIFICATE** secret, see below.
-4. Note the thumbprint and use it for the **SITHS_ROOTCERTIFICATE_THUMBPRINT** secret, see below.
+4. Note the thumbprint, as **upper-case**, and use it for the **SITHS_ROOTCERTIFICATE_THUMBPRINT** secret, see below.
 
 ### 1.5 GitHub secrets
 
